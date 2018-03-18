@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <properties resource="jdbc-config.properties"/>
+
+    <context id="context" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 由于beginningDelimiter和endingDelimiter的默认值为双引号(")，在Mysql中不能这么写，所以还要将这两个默认值改为`  -->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <!-- 为生成的Java模型创建一个toString方法 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <!-- Java模型生成equals和hashcode方法 -->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+
+        <!-- 生成的代码去掉注释 -->
+        <commentGenerator type="priv.thinkam.thinkmall.plugin.MybatisCommentGenerator">
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="${jdbc.driverClassName}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}"
+                        password="${jdbc.password}"/>
+
+        <!-- Model Configurations -->
+        <javaModelGenerator targetPackage="priv.thinkam.thinkmall.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- Table Configurations -->
+        <table tableName="administrator" domainObjectName="Administrator">
+            <columnOverride column="gmt_create" property="createTime"/>
+            <columnOverride column="gmt_modified" property="modifiedTime"/>
+        </table>
+        <table tableName="user" domainObjectName="User">
+            <columnOverride column="gmt_create" property="createTime"/>
+            <columnOverride column="gmt_modified" property="modifiedTime"/>
+            <columnOverride column="is_locked" property="locked"/>
+        </table>
+        <table tableName="shipping_address" domainObjectName="ShippingAddress">
+            <columnOverride column="gmt_create" property="createTime"/>
+            <columnOverride column="gmt_modified" property="modifiedTime"/>
+            <columnOverride column="is_acquiescent" property="acquiescent"/>
+            <columnOverride column="is_deleted" property="deleted"/>
+        </table>
+        <table tableName="category" domainObjectName="Category">
+            <columnOverride column="gmt_create" property="createTime"/>
+            <columnOverride column="gmt_modified" property="modifiedTime"/>
+            <columnOverride column="is_leaf" property="leaf"/>
+            <columnOverride column="is_deleted" property="deleted"/>
+        </table>
+        <table tableName="product" domainObjectName="Product">
+            <columnOverride column="gmt_create" property="createTime"/>
+            <columnOverride column="gmt_modified" property="modifiedTime"/>
+        </table>
+        <table tableName="order" domainObjectName="Order">
+            <columnOverride column="gmt_create" property="createTime"/>
+            <columnOverride column="gmt_modified" property="modifiedTime"/>
+            <columnOverride column="gmt_consign" property="consignTime"/>
+            <columnOverride column="gmt_success" property="successTime"/>
+            <columnOverride column="gmt_close" property="closeTime"/>
+        </table>
+        <table tableName="order_item" domainObjectName="OrderItem">
+            <columnOverride column="gmt_create" property="createTime"/>
+            <columnOverride column="gmt_modified" property="modifiedTime"/>
+        </table>
+    </context>
+</generatorConfiguration>

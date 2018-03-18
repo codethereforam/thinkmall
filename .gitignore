@@ -1,6 +1,5 @@
 .idea
 *.iml
-generatorConfig.xml
 out
 gen
 .classpath
