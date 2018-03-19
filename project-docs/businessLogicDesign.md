@@ -26,8 +26,8 @@ administrator_id | unsigned bigint | 管理员编号
 username | varchar(20) | 用户名
 password | char(32) | 密码 = md5(真实密码 + 盐)
 salt | char(32) | 盐
-gmt_create | datetime | 创建时间
-gmt_modified | datetime | 更新时间
+gmt_create | datetime(3) | 创建时间
+gmt_modified | datetime(3) | 更新时间
 
 2. user（用户）
 
@@ -41,8 +41,8 @@ email | varchar(50) | 邮箱
 phone_number | char(11) | 电话号码
 sex | unsigned tinyint(2) | 性别(0:女，1:男，2:不愿透露)
 is_locked | unsigned tinyint(1) | 是否锁定(1表示是,0表示否)
-gmt_create | datetime | 创建时间
-gmt_modified | datetime | 更新时间
+gmt_create | datetime(3) | 创建时间
+gmt_modified | datetime(3) | 更新时间
 
 3. shipping_address（收货地址）
 
@@ -55,8 +55,8 @@ phone_number | char(11) | 电话号码
 detail | varchar(255) | 详细地址
 is_acquiescent | unsigned tinyint(1) | 是否是默认值(0表示否，1表示是)
 is_deleted | unsigned tinyint(1) | 是否删除（0：正常，1：删除）
-gmt_create | datetime | 创建时间
-gmt_modified | datetime | 更新时间
+gmt_create | datetime(3) | 创建时间
+gmt_modified | datetime(3) | 更新时间
 
 4. category（类别）
 
@@ -69,8 +69,8 @@ parent_id | unsigned bigint | 父类别编号（0代表是根类别）
 is_leaf | unsigned tinyint(1) | 是否为叶子节点（0：否，1：是）
 level | unsigned tinyint(2) | 类别层次（只能为1或2或3）
 is_deleted | unsigned tinyint(1) | 是否删除（0：正常，1：删除）
-gmt_create | datetime | 创建时间
-gmt_modified | datetime | 更新时间
+gmt_create | datetime(3) | 创建时间
+gmt_modified | datetime(3) | 更新时间
 
 5. product（商品）
 
@@ -84,8 +84,8 @@ price | decimal(12,2) | 商品单价（单位：元）
 count | unsigned int | 商品数量
 image_path | varchar(255) | 图片路径
 status | unsigned tinyint(2) | 商品状态(1:正常；2:下架；3：删除)
-gmt_create | datetime | 创建时间
-gmt_modified | datetime | 更新时间
+gmt_create | datetime(3) | 创建时间
+gmt_modified | datetime(3) | 更新时间
 
 6. order（订单）
 
@@ -96,11 +96,11 @@ user_id | unsigned bigint | 用户编号
 shipping_address_id | unsigned bigint | 收货地址编号
 user_message | varchar(255) | 用户留言
 status | unsigned tinyint(2) | 订单状态(1:已生成；2：已发货；3:交易成功；4：交易关闭)
-gmt_create | datetime | 创建时间
-gmt_modified | datetime | 更新时间
-gmt_consign | datetime | 发货时间
-gmt_success | datetime | 交易成功时间
-gmt_close | datetime | 交易关闭时间
+gmt_create | datetime(3) | 创建时间
+gmt_modified | datetime(3) | 更新时间
+gmt_consign | datetime(3) | 发货时间
+gmt_success | datetime(3) | 交易成功时间
+gmt_close | datetime(3) | 交易关闭时间
 
 7. order_item（订单项）
 
@@ -110,8 +110,8 @@ order_item_id | unsigned bigint | 订单项编号
 order_id | unsigned bigint | 订单编号
 product_id | unsigned bigint | 商品编号
 count | unsigned int | 购买数量
-gmt_create | datetime | 创建时间
-gmt_modified | datetime | 更新时间
+gmt_create | datetime(3) | 创建时间
+gmt_modified | datetime(3) | 更新时间
 
 ## 备注
 

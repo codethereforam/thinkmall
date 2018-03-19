@@ -2,7 +2,7 @@
 SET @salt = replace(UUID(), '-', '');
 INSERT INTO administrator (username, password, salt, gmt_create, gmt_modified)
   VALUE ('username', md5(concat('password', @salt)), @salt,
-         now(), now());
+         now(3), now(3));
 
 # 删除管理员
 DELETE FROM administrator WHERE username = 'username';

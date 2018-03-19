@@ -29,8 +29,8 @@ CREATE TABLE `administrator` (
   `username` varchar(20) NOT NULL COMMENT '用户名',
   `password` char(32) NOT NULL COMMENT '密码 = md5(真实密码 + 盐)',
   `salt` char(32) NOT NULL COMMENT '盐',
-  `gmt_create` datetime NOT NULL COMMENT '创建时间',
-  `gmt_modified` datetime NOT NULL COMMENT '更新时间',
+  `gmt_create` datetime(3) NOT NULL COMMENT '创建时间',
+  `gmt_modified` datetime(3) NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`administrator_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='管理员';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -59,8 +59,8 @@ CREATE TABLE `category` (
   `is_leaf` tinyint(1) unsigned NOT NULL COMMENT '是否为叶子节点（0：否，1：是）',
   `level` tinyint(2) unsigned NOT NULL COMMENT ' 类别层次（只能为1或2或3）',
   `is_deleted` tinyint(1) unsigned NOT NULL COMMENT '是否删除（0：正常，1：删除）',
-  `gmt_create` datetime NOT NULL COMMENT '创建时间',
-  `gmt_modified` datetime NOT NULL COMMENT '更新时间',
+  `gmt_create` datetime(3) NOT NULL COMMENT '创建时间',
+  `gmt_modified` datetime(3) NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='类别';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -87,11 +87,11 @@ CREATE TABLE `order` (
   `shipping_address_id` bigint(20) unsigned NOT NULL COMMENT '收货地址编号',
   `user_message` varchar(255) DEFAULT NULL COMMENT '用户留言',
   `status` tinyint(2) unsigned NOT NULL COMMENT ' 订单状态(1:已生成；2：已发货；3:交易成功；4：交易关闭)',
-  `gmt_create` datetime NOT NULL COMMENT '创建时间',
-  `gmt_modified` datetime NOT NULL COMMENT '更新时间',
-  `gmt_consign` datetime DEFAULT NULL COMMENT '发货时间',
-  `gmt_success` datetime DEFAULT NULL COMMENT '交易成功时间',
-  `gmt_close` datetime DEFAULT NULL COMMENT '交易关闭时间',
+  `gmt_create` datetime(3) NOT NULL COMMENT '创建时间',
+  `gmt_modified` datetime(3) NOT NULL COMMENT '更新时间',
+  `gmt_consign` datetime(3) DEFAULT NULL COMMENT '发货时间',
+  `gmt_success` datetime(3) DEFAULT NULL COMMENT '交易成功时间',
+  `gmt_close` datetime(3) DEFAULT NULL COMMENT '交易关闭时间',
   PRIMARY KEY (`order_id`),
   KEY `fk_user_id_idx` (`user_id`),
   KEY `fk_shipping_address_id_idx` (`shipping_address_id`),
@@ -121,8 +121,8 @@ CREATE TABLE `order_item` (
   `order_id` bigint(20) unsigned NOT NULL COMMENT '订单编号',
   `product_id` bigint(20) unsigned NOT NULL COMMENT '商品编号',
   `count` int(10) unsigned NOT NULL COMMENT '购买数量',
-  `gmt_create` datetime NOT NULL COMMENT '创建时间',
-  `gmt_modified` datetime NOT NULL COMMENT '更新时间',
+  `gmt_create` datetime(3) NOT NULL COMMENT '创建时间',
+  `gmt_modified` datetime(3) NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`order_item_id`),
   KEY `fk_order_item_order_id_idx` (`order_id`),
   KEY `fk_order_item_product_id_idx` (`product_id`),
@@ -156,8 +156,8 @@ CREATE TABLE `product` (
   `count` int(10) unsigned NOT NULL COMMENT '商品数量',
   `image_path` varchar(255) DEFAULT NULL COMMENT '图片路径',
   `status` tinyint(2) unsigned NOT NULL COMMENT '商品状态(1:正常；2:下架；3：删除)',
-  `gmt_create` datetime NOT NULL COMMENT '创建时间',
-  `gmt_modified` datetime NOT NULL COMMENT '更新时间',
+  `gmt_create` datetime(3) NOT NULL COMMENT '创建时间',
+  `gmt_modified` datetime(3) NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`product_id`),
   KEY `fk_category_id_idx` (`category_id`),
   CONSTRAINT `fk_product_category_id` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -188,8 +188,8 @@ CREATE TABLE `shipping_address` (
   `detail` varchar(45) NOT NULL COMMENT '详细地址',
   `is_acquiescent` tinyint(1) unsigned NOT NULL COMMENT '是否是默认值(0表示否，1表示是)',
   `is_deleted` tinyint(1) unsigned NOT NULL COMMENT '是否删除（0：正常，1：删除）',
-  `gmt_create` datetime NOT NULL COMMENT '创建时间',
-  `gmt_modified` datetime NOT NULL COMMENT '更新时间',
+  `gmt_create` datetime(3) NOT NULL COMMENT '创建时间',
+  `gmt_modified` datetime(3) NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`shipping_address_id`),
   KEY `fk_user_id_idx` (`user_id`),
   CONSTRAINT `fk_shipping_address_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -221,8 +221,8 @@ CREATE TABLE `user` (
   `phone_number` char(11) NOT NULL COMMENT '电话号码',
   `sex` tinyint(2) unsigned NOT NULL COMMENT '性别(0:女，1:男，2:不愿透露)',
   `is_locked` tinyint(1) unsigned NOT NULL COMMENT '是否锁定(1表示是,0表示否)',
-  `gmt_create` datetime NOT NULL COMMENT '创建时间',
-  `gmt_modified` datetime NOT NULL COMMENT '更新时间',
+  `gmt_create` datetime(3) NOT NULL COMMENT '创建时间',
+  `gmt_modified` datetime(3) NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -245,4 +245,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-19  0:01:09
+-- Dump completed on 2018-03-19 20:39:02
