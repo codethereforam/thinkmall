@@ -21,12 +21,9 @@
         WHERE username = #{username}
     </select>
 
-    <insert id="save" parameterType="Administrator">
-        <selectKey keyProperty="administratorId" order="AFTER" resultType="java.lang.Long">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
+    <insert id="save" parameterType="Administrator" useGeneratedKeys="true" keyProperty="administratorId">
         INSERT INTO administrator (username, password, salt, gmt_create, gmt_modified) VALUES (
-        #{username}, #{password}, #{salt}, #{createTime}, #{modifiedTime}
+            #{username}, #{password}, #{salt}, #{createTime}, #{modifiedTime}
         )
     </insert>
 
