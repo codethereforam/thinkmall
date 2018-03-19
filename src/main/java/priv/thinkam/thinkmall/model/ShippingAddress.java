@@ -37,12 +37,12 @@ public class ShippingAddress {
     /**
      * 是否是默认值(0表示否，1表示是)
      */
-    private Byte acquiescent;
+    private Boolean acquiescent;
 
     /**
      * 是否删除（0：正常，1：删除）
      */
-    private Byte deleted;
+    private Boolean deleted;
 
     /**
      * 创建时间
@@ -94,19 +94,19 @@ public class ShippingAddress {
         this.detail = detail == null ? null : detail.trim();
     }
 
-    public Byte getAcquiescent() {
+    public Boolean getAcquiescent() {
         return acquiescent;
     }
 
-    public void setAcquiescent(Byte acquiescent) {
+    public void setAcquiescent(Boolean acquiescent) {
         this.acquiescent = acquiescent;
     }
 
-    public Byte getDeleted() {
+    public Boolean getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Byte deleted) {
+    public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
     }
 

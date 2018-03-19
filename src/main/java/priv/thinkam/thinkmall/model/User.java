@@ -42,12 +42,12 @@ public class User {
     /**
      * 性别(0:女，1:男，2:不愿透露)
      */
-    private Byte sex;
+    private UserSexEnum sex;
 
     /**
      * 是否锁定(1表示是,0表示否)
      */
-    private Byte locked;
+    private Boolean locked;
 
     /**
      * 创建时间
@@ -107,19 +107,19 @@ public class User {
         this.phoneNumber = phoneNumber == null ? null : phoneNumber.trim();
     }
 
-    public Byte getSex() {
+    public UserSexEnum getSex() {
         return sex;
     }
 
-    public void setSex(Byte sex) {
+    public void setSex(UserSexEnum sex) {
         this.sex = sex;
     }
 
-    public Byte getLocked() {
+    public Boolean getLocked() {
         return locked;
     }
 
-    public void setLocked(Byte locked) {
+    public void setLocked(Boolean locked) {
         this.locked = locked;
     }
 

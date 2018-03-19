@@ -32,17 +32,17 @@ public class Category {
     /**
      * 是否为叶子节点（0：否，1：是）
      */
-    private Byte leaf;
+    private Boolean leaf;
 
     /**
      *  类别层次（只能为1或2或3）
      */
-    private Byte level;
+    private CategoryLevelEnum level;
 
     /**
      * 是否删除（0：正常，1：删除）
      */
-    private Byte deleted;
+    private Boolean deleted;
 
     /**
      * 创建时间
@@ -86,27 +86,27 @@ public class Category {
         this.parentId = parentId;
     }
 
-    public Byte getLeaf() {
+    public Boolean getLeaf() {
         return leaf;
     }
 
-    public void setLeaf(Byte leaf) {
+    public void setLeaf(Boolean leaf) {
         this.leaf = leaf;
     }
 
-    public Byte getLevel() {
+    public CategoryLevelEnum getLevel() {
         return level;
     }
 
-    public void setLevel(Byte level) {
+    public void setLevel(CategoryLevelEnum level) {
         this.level = level;
     }
 
-    public Byte getDeleted() {
+    public Boolean getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Byte deleted) {
+    public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
     }
 

@@ -48,7 +48,7 @@ public class Product {
     /**
      * 商品状态(1:正常；2:下架；3：删除)
      */
-    private Byte status;
+    private ProductStatusEnum status;
 
     /**
      * 创建时间
@@ -116,11 +116,11 @@ public class Product {
         this.imagePath = imagePath == null ? null : imagePath.trim();
     }
 
-    public Byte getStatus() {
+    public ProductStatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(ProductStatusEnum status) {
         this.status = status;
     }
 

@@ -32,7 +32,7 @@ public class Order {
     /**
      *  订单状态(1:已生成；2：已发货；3:交易成功；4：交易关闭)
      */
-    private Byte status;
+    private OrderStatusEnum status;
 
     /**
      * 创建时间
@@ -91,11 +91,11 @@ public class Order {
         this.userMessage = userMessage == null ? null : userMessage.trim();
     }
 
-    public Byte getStatus() {
+    public OrderStatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(OrderStatusEnum status) {
         this.status = status;
     }
 

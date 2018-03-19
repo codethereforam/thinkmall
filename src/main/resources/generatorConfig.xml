@@ -43,23 +43,30 @@
         <table tableName="user" domainObjectName="User">
             <columnOverride column="gmt_create" property="createTime"/>
             <columnOverride column="gmt_modified" property="modifiedTime"/>
-            <columnOverride column="is_locked" property="locked"/>
+
+            <columnOverride column="is_locked" property="locked" javaType="Boolean"/>
+            <columnOverride column="sex" javaType="UserSexEnum"/>
         </table>
         <table tableName="shipping_address" domainObjectName="ShippingAddress">
             <columnOverride column="gmt_create" property="createTime"/>
             <columnOverride column="gmt_modified" property="modifiedTime"/>
-            <columnOverride column="is_acquiescent" property="acquiescent"/>
-            <columnOverride column="is_deleted" property="deleted"/>
+
+            <columnOverride column="is_acquiescent" property="acquiescent" javaType="Boolean"/>
+            <columnOverride column="is_deleted" property="deleted" javaType="Boolean"/>
         </table>
         <table tableName="category" domainObjectName="Category">
             <columnOverride column="gmt_create" property="createTime"/>
             <columnOverride column="gmt_modified" property="modifiedTime"/>
-            <columnOverride column="is_leaf" property="leaf"/>
-            <columnOverride column="is_deleted" property="deleted"/>
+
+            <columnOverride column="is_leaf" property="leaf" javaType="Boolean"/>
+            <columnOverride column="is_deleted" property="deleted" javaType="Boolean"/>
+            <columnOverride column="level" javaType="CategoryLevelEnum"/>
         </table>
         <table tableName="product" domainObjectName="Product">
             <columnOverride column="gmt_create" property="createTime"/>
             <columnOverride column="gmt_modified" property="modifiedTime"/>
+
+            <columnOverride column="status" javaType="ProductStatusEnum"/>
         </table>
         <table tableName="order" domainObjectName="Order">
             <columnOverride column="gmt_create" property="createTime"/>
@@ -67,6 +74,8 @@
             <columnOverride column="gmt_consign" property="consignTime"/>
             <columnOverride column="gmt_success" property="successTime"/>
             <columnOverride column="gmt_close" property="closeTime"/>
+
+            <columnOverride column="status" javaType="OrderStatusEnum"/>
         </table>
         <table tableName="order_item" domainObjectName="OrderItem">
             <columnOverride column="gmt_create" property="createTime"/>
