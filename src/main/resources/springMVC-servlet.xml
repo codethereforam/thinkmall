@@ -22,4 +22,15 @@
 
     <mvc:annotation-driven/>
 
+    <!-- 配置静态资源，不被DispatcherServlet处理，增加缓存时间10秒 -->
+    <mvc:resources mapping="/assets/**" location="/assets/" cache-period="10"/>
+
+    <!-- Jsp视图 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="order" value="1"/>
+        <property name="prefix" value="/WEB-INF/jsp"/>
+        <property name="suffix" value=""/>
+        <property name="contentType" value="text/html; charset=utf-8"/>
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+    </bean>
 </beans>

@@ -5,7 +5,7 @@
          version="2.5">
     <!-- 欢迎页面 -->
     <welcome-file-list>
-        <welcome-file>hello.html</welcome-file>
+        <welcome-file>test.jsp</welcome-file>
     </welcome-file-list>
 
     <!-- 默认的spring配置文件是在WEB-INF下的applicationContext.xml -->
