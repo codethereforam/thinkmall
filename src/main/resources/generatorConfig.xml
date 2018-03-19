@@ -24,7 +24,10 @@
         <jdbcConnection driverClass="${jdbc.driverClassName}"
                         connectionURL="${jdbc.url}"
                         userId="${jdbc.username}"
-                        password="${jdbc.password}"/>
+                        password="${jdbc.password}">
+            <!-- 配置表注释可读 -->
+            <property name="useInformationSchema" value="true"/>
+        </jdbcConnection>
 
         <!-- Model Configurations -->
         <javaModelGenerator targetPackage="priv.thinkam.thinkmall.model" targetProject="src/main/java">
