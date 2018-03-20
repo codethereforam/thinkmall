@@ -22,6 +22,9 @@
 
     <mvc:annotation-driven/>
 
+    <!-- 根目录'/'对应页面 -->
+    <mvc:view-controller path="/" view-name="/index.jsp"/>
+
     <!-- 配置静态资源，不被DispatcherServlet处理，增加缓存时间10秒 -->
     <mvc:resources mapping="/assets/**" location="/assets/" cache-period="10"/>
 

@@ -13,24 +13,25 @@
 </head>
 <body>
 <div class="container">
-    <form class="form-signin" action="${basePath}/adminLogin" method="post">
+    <form class="form-signin form-horizontal" action="${basePath}/manage/login" method="post">
         <h2 class="form-signin-heading">thinkmall后台</h2>
         <div class="form-group input-lg">
             <span class="glyphicon glyphicon-user"></span>
             <label for="inputAccountName"></label>
-            <input id="inputAccountName" name="username" placeholder="Account name: not blank" required autofocus>
+            <input id="inputAccountName" name="username" placeholder="用户名： 非空" required autofocus>
         </div>
         <div class="form-group input-lg">
             <span class="glyphicon glyphicon-lock"></span>
             <label for="inputPassword"></label>
-            <input type="password" name="password" id="inputPassword" placeholder="Password: not blank" required>
+            <input type="password" name="password" id="inputPassword" placeholder="密码：非空" required>
         </div>
-        <div class="checkbox input-lg">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
+        <div class="form-group input-lg">
+            <span class="glyphicon glyphicon-check"></span>
+            <label for="inputCaptcha"></label>
+            <input typeof="text" name="captcha" id="inputCaptcha" style="width: 40%;"/>
+            <img src="" alt="验证码" id="captchaImage">
         </div>
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Sign in</button>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">登入</button>
     </form>
 </div>
 
