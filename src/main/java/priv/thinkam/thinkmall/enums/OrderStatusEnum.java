@@ -1,4 +1,4 @@
-package priv.thinkam.thinkmall.model;
+package priv.thinkam.thinkmall.enums;
 
 /**
  * 订单状态枚举

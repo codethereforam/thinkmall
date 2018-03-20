@@ -1,4 +1,4 @@
-package priv.thinkam.thinkmall.model;
+package priv.thinkam.thinkmall.enums;
 
 /**
  * 用户性别枚举

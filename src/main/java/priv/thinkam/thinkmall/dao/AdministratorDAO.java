@@ -1,6 +1,6 @@
 package priv.thinkam.thinkmall.dao;
 
-import priv.thinkam.thinkmall.model.Administrator;
+import priv.thinkam.thinkmall.entity.Administrator;
 
 import java.util.List;
 

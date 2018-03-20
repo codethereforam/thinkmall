@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import priv.thinkam.thinkmall.model.Administrator;
+import priv.thinkam.thinkmall.entity.Administrator;
 import priv.thinkam.thinkmall.util.Md5Util;
 
 import javax.annotation.Resource;

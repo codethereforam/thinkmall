@@ -1,4 +1,6 @@
-package priv.thinkam.thinkmall.model;
+package priv.thinkam.thinkmall.entity;
+
+import priv.thinkam.thinkmall.enums.CategoryLevelEnum;
 
 import java.util.Date;
 

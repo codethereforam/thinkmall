@@ -9,6 +9,6 @@
 	</settings>
 
     <typeAliases>
-        <typeAlias alias="Administrator" type="priv.thinkam.thinkmall.model.Administrator" />
+        <typeAlias alias="Administrator" type="priv.thinkam.thinkmall.entity.Administrator" />
     </typeAliases>
 </configuration>

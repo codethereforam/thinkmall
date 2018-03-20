@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="priv.thinkam.thinkmall.dao.AdministratorDAO">
-    <resultMap id="BaseResultMap" type="priv.thinkam.thinkmall.model.Administrator">
+    <resultMap id="BaseResultMap" type="priv.thinkam.thinkmall.entity.Administrator">
         <id column="administrator_id" jdbcType="BIGINT" property="administratorId"/>
         <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="password" jdbcType="CHAR" property="password"/>

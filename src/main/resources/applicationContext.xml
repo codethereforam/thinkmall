@@ -16,4 +16,7 @@
 
 	<!-- 启动任务注解 -->
 	<task:annotation-driven />
+
+    <!-- 引入相关配置文件 -->
+    <context:property-placeholder location="classpath*:*-config.properties"/>
 </beans>

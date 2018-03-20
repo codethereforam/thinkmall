@@ -1,4 +1,4 @@
-package priv.thinkam.thinkmall.model;
+package priv.thinkam.thinkmall.entity;
 
 import java.util.Date;
 

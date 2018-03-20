@@ -3,7 +3,7 @@ package priv.thinkam.thinkmall.service.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import priv.thinkam.thinkmall.dao.AdministratorDAO;
-import priv.thinkam.thinkmall.model.Administrator;
+import priv.thinkam.thinkmall.entity.Administrator;
 import priv.thinkam.thinkmall.service.AdministratorService;
 
 import javax.annotation.Resource;

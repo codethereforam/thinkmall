@@ -1,4 +1,6 @@
-package priv.thinkam.thinkmall.model;
+package priv.thinkam.thinkmall.entity;
+
+import priv.thinkam.thinkmall.enums.ProductStatusEnum;
 
 import java.math.BigDecimal;
 import java.util.Date;
