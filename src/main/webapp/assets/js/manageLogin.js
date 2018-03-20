@@ -18,8 +18,18 @@ $(document).ready(function () {
         updateCaptcha();
     });
 
+    $('#inputUsername, #inputPassword, #inputCaptcha').keypress(function (event) {
+        if(event.keyCode === 13) {
+            login();
+        }
+    });
+
+    $('#loginBtn').click(function () {
+        login();
+    });
+
     // login
-    $("#loginBtn").click(function () {
+    function login() {
         // report validity
         var valid = document.querySelector("form").reportValidity();
         if (!valid) {
@@ -43,7 +53,7 @@ $(document).ready(function () {
                 alertDiv.show();
             }
         });
-    });
+    }
 
     // update captcha
     function updateCaptcha() {
