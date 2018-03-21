@@ -14,4 +14,9 @@ public class WebController {
     public String index() {
         return "/web/index.jsp";
     }
+
+    @GetMapping("/redirect")
+    public String redirect() {
+        return "/redirect.jsp";
+    }
 }

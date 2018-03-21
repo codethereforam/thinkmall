@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,10 +47,12 @@ public class ManageLoginController {
     private Producer captchaProducer;
 
     @GetMapping("/login")
-    public String login(HttpSession session) {
+    public String login(HttpSession session, ModelMap modelMap) {
         // check login session
         if (session.getAttribute(ADMINISTRATOR_IN_SESSION) != null) {
-            return "redirect:/manage/index";
+            modelMap.addAttribute("errorMsg", "您已登录");
+            modelMap.addAttribute("redirectUrl", "/manage/index");
+            return "forward:/redirect";
         }
         return "/manageLogin.jsp";
     }
