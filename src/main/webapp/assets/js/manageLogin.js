@@ -41,6 +41,11 @@ $(document).ready(function () {
             password: $('#inputPassword').val(),
             captcha: inputCaptcha.val()
         }, function (data) {
+            // if data is the error page
+            if(typeof data !== 'object') {
+                $('html').html(data);
+                return;
+            }
             if (data.success) {
                 location.href = BASE_PATH + "/manage/index";
             } else {

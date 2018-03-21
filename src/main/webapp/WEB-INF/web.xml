@@ -39,4 +39,14 @@
         <servlet-name>springMVC</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <!-- 错误页面 -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/jsp/404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/jsp/500.jsp</location>
+    </error-page>
 </web-app>

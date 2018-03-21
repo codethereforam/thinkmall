@@ -117,7 +117,7 @@ public class ManageLoginController {
     }
 
     @GetMapping("/captcha")
-    public void getCaptcha(HttpServletResponse response, HttpSession session) {
+    public void getCaptcha(HttpServletResponse response, HttpSession session) throws IOException {
         response.setDateHeader("Expires", 0);
         response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
         response.addHeader("Cache-Control", "post-check=0, pre-check=0");
@@ -133,7 +133,7 @@ public class ManageLoginController {
             ImageIO.write(bufferedImage, "jpg", out);
             out.flush();
         } catch (IOException e) {
-            //TODO:处理系统错误，记录日志
+            throw new IOException("验证码输出异常", e);
         }
     }
 }

@@ -4,15 +4,20 @@
 		<Console name="Console" target="SYSTEM_OUT">
 			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
 		</Console>
-	</Appenders>
+        <File name="WarnFile" fileName="/media/thinkam/DATA/IDEA/thinkmall/log/thinkmall.log" append="false">
+            <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+        </File>
+    </Appenders>
 
 	<Loggers>
 		<Logger name="priv.thinkam.thinkmall" level="debug" additivity="false">
 			<AppenderRef ref="Console" />
+            <AppenderRef ref="WarnFile"/>
 		</Logger>
-
 		<Root level="warn">
 			<AppenderRef ref="Console" />
+            <AppenderRef ref="WarnFile"/>
 		</Root>
 	</Loggers>
 </Configuration>
