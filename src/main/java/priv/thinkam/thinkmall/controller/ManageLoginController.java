@@ -47,11 +47,16 @@ public class ManageLoginController {
     private Producer captchaProducer;
 
     @GetMapping("/login")
-    public String login(HttpSession session, ModelMap modelMap) {
+    public String login(HttpSession session, ModelMap modelMap, HttpServletRequest request) {
         // check login session
         if (session.getAttribute(ADMINISTRATOR_IN_SESSION) != null) {
+            // redirect to original url
+            String redirectUrl = request.getHeader("Referer");
+            if (redirectUrl == null) {
+                redirectUrl = "/manage/index";
+            }
             modelMap.addAttribute("errorMsg", "您已登录");
-            modelMap.addAttribute("redirectUrl", "/manage/index");
+            modelMap.addAttribute("redirectUrl", redirectUrl);
             return "forward:/redirect";
         }
         return "/manageLogin.jsp";
@@ -109,10 +114,14 @@ public class ManageLoginController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        if (session.getAttribute(ADMINISTRATOR_IN_SESSION) != null) {
-            session.removeAttribute(ADMINISTRATOR_IN_SESSION);
+    public String logout(HttpSession session, ModelMap modelMap) {
+        // if not login
+        if (session.getAttribute(ADMINISTRATOR_IN_SESSION) == null) {
+            modelMap.addAttribute("errorMsg", "您还未登录");
+            modelMap.addAttribute("redirectUrl", "/manage/login");
+            return "forward:/redirect";
         }
+        session.removeAttribute(ADMINISTRATOR_IN_SESSION);
         return "redirect:/manage/login";
     }
 
