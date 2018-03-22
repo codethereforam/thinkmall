@@ -1,4 +1,4 @@
-package priv.thinkam.thinkmall.plugin;
+package priv.thinkam.thinkmall.util;
 
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;

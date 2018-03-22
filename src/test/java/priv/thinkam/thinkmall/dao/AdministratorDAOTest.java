@@ -51,7 +51,7 @@ public class AdministratorDAOTest {
         administratorDAO.removeAll();
         // prepare test data
         int affectRow = administratorDAO.save(testData1);
-        assertEquals(affectRow, 1);
+        assertEquals(1, affectRow);
     }
 
     @Test
@@ -65,13 +65,13 @@ public class AdministratorDAOTest {
         administrator.setCreateTime(now);
         administrator.setModifiedTime(now);
         int affectRow = administratorDAO.save(administrator);
-        assertEquals(affectRow ,1);
+        assertEquals(1, affectRow);
     }
 
     @Test
     public void testListByUsername() {
         List<Administrator> administrators = administratorDAO.listByUsername("u1");
-        assertEquals(administrators.size(), 1);
+        assertEquals(1, administrators.size());
         assertEquals(testData1, administrators.get(0));
     }
 }

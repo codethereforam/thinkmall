@@ -10,5 +10,11 @@
 
     <typeAliases>
         <typeAlias alias="Administrator" type="priv.thinkam.thinkmall.entity.Administrator" />
+        <typeAlias alias="Category" type="priv.thinkam.thinkmall.entity.Category"/>
     </typeAliases>
+
+    <typeHandlers>
+        <typeHandler handler="priv.thinkam.thinkmall.util.CodeEnumTypeHandler"
+        javaType="priv.thinkam.thinkmall.enums.CategoryLevelEnum"/>
+    </typeHandlers>
 </configuration>

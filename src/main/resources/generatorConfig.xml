@@ -16,7 +16,7 @@
         <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
 
         <!-- 生成的代码去掉注释 -->
-        <commentGenerator type="priv.thinkam.thinkmall.plugin.MybatisCommentGenerator">
+        <commentGenerator type="priv.thinkam.thinkmall.util.MybatisCommentGenerator">
             <property name="suppressAllComments" value="true"/>
             <property name="suppressDate" value="true"/>
         </commentGenerator>
