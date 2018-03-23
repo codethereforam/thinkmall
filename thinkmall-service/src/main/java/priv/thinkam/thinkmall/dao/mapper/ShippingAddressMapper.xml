@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="priv.thinkam.thinkmall.dao.mapper.ShippingAddressMapper">
+  <resultMap id="BaseResultMap" type="priv.thinkam.thinkmall.dao.entity.ShippingAddress">
+    <id column="shipping_address_id" jdbcType="BIGINT" property="shippingAddressId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="receiver_name" jdbcType="VARCHAR" property="receiverName" />
+    <result column="phone_number" jdbcType="CHAR" property="phoneNumber" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="is_acquiescent" jdbcType="TINYINT" property="acquiescent" />
+    <result column="is_deleted" jdbcType="TINYINT" property="deleted" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="modifiedTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    shipping_address_id, user_id, receiver_name, phone_number, detail, is_acquiescent, 
+    is_deleted, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByExample" parameterType="priv.thinkam.thinkmall.dao.entity.ShippingAddressExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shipping_address
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shipping_address
+    where shipping_address_id = #{shippingAddressId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from shipping_address
+    where shipping_address_id = #{shippingAddressId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="priv.thinkam.thinkmall.dao.entity.ShippingAddressExample">
+    delete from shipping_address
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="priv.thinkam.thinkmall.dao.entity.ShippingAddress">
+    <selectKey keyProperty="shippingAddressId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into shipping_address (user_id, receiver_name, phone_number, 
+      detail, is_acquiescent, is_deleted, 
+      gmt_create, gmt_modified)
+    values (#{userId,jdbcType=BIGINT}, #{receiverName,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=CHAR}, 
+      #{detail,jdbcType=VARCHAR}, #{acquiescent,jdbcType=TINYINT}, #{deleted,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="priv.thinkam.thinkmall.dao.entity.ShippingAddress">
+    <selectKey keyProperty="shippingAddressId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into shipping_address
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="receiverName != null">
+        receiver_name,
+      </if>
+      <if test="phoneNumber != null">
+        phone_number,
+      </if>
+      <if test="detail != null">
+        detail,
+      </if>
+      <if test="acquiescent != null">
+        is_acquiescent,
+      </if>
+      <if test="deleted != null">
+        is_deleted,
+      </if>
+      <if test="createTime != null">
+        gmt_create,
+      </if>
+      <if test="modifiedTime != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="receiverName != null">
+        #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null">
+        #{phoneNumber,jdbcType=CHAR},
+      </if>
+      <if test="detail != null">
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="acquiescent != null">
+        #{acquiescent,jdbcType=TINYINT},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="priv.thinkam.thinkmall.dao.entity.ShippingAddressExample" resultType="java.lang.Long">
+    select count(*) from shipping_address
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update shipping_address
+    <set>
+      <if test="record.shippingAddressId != null">
+        shipping_address_id = #{record.shippingAddressId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.receiverName != null">
+        receiver_name = #{record.receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phoneNumber != null">
+        phone_number = #{record.phoneNumber,jdbcType=CHAR},
+      </if>
+      <if test="record.detail != null">
+        detail = #{record.detail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acquiescent != null">
+        is_acquiescent = #{record.acquiescent,jdbcType=TINYINT},
+      </if>
+      <if test="record.deleted != null">
+        is_deleted = #{record.deleted,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null">
+        gmt_create = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifiedTime != null">
+        gmt_modified = #{record.modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update shipping_address
+    set shipping_address_id = #{record.shippingAddressId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      receiver_name = #{record.receiverName,jdbcType=VARCHAR},
+      phone_number = #{record.phoneNumber,jdbcType=CHAR},
+      detail = #{record.detail,jdbcType=VARCHAR},
+      is_acquiescent = #{record.acquiescent,jdbcType=TINYINT},
+      is_deleted = #{record.deleted,jdbcType=TINYINT},
+      gmt_create = #{record.createTime,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.modifiedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="priv.thinkam.thinkmall.dao.entity.ShippingAddress">
+    update shipping_address
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="receiverName != null">
+        receiver_name = #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null">
+        phone_number = #{phoneNumber,jdbcType=CHAR},
+      </if>
+      <if test="detail != null">
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="acquiescent != null">
+        is_acquiescent = #{acquiescent,jdbcType=TINYINT},
+      </if>
+      <if test="deleted != null">
+        is_deleted = #{deleted,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        gmt_create = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        gmt_modified = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where shipping_address_id = #{shippingAddressId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="priv.thinkam.thinkmall.dao.entity.ShippingAddress">
+    update shipping_address
+    set user_id = #{userId,jdbcType=BIGINT},
+      receiver_name = #{receiverName,jdbcType=VARCHAR},
+      phone_number = #{phoneNumber,jdbcType=CHAR},
+      detail = #{detail,jdbcType=VARCHAR},
+      is_acquiescent = #{acquiescent,jdbcType=TINYINT},
+      is_deleted = #{deleted,jdbcType=TINYINT},
+      gmt_create = #{createTime,jdbcType=TIMESTAMP},
+      gmt_modified = #{modifiedTime,jdbcType=TIMESTAMP}
+    where shipping_address_id = #{shippingAddressId,jdbcType=BIGINT}
+  </update>
+</mapper>

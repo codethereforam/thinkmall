@@ -1,0 +1,15 @@
+package ${package_name}.service;
+
+import ${package_name}.common.base.BaseService;
+import ${package_name}.dao.entity.${model};
+import ${package_name}.dao.entity.${model}Example;
+
+/**
+ * ${model}Service接口
+ *
+ * @author thinkam
+ * @date ${ctime}
+ */
+public interface ${model}Service extends BaseService<${model}, ${model}Example> {
+
+}

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <properties resource="generator.properties"/>
+
+    <context id="context" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 由于beginningDelimiter和endingDelimiter的默认值为双引号(")，在Mysql中不能这么写，所以还要将这两个默认值改为`  -->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <!-- 为生成的Java模型创建一个toString方法 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <!-- Java模型生成equals和hashcode方法 -->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+
+        <!-- 生成的代码去掉默认注释，生成自定义注释 -->
+        <commentGenerator type="priv.thinkam.thinkmall.common.util.MybatisCommentGenerator">
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="${generator.jdbc.driver}"
+                        connectionURL="${generator.jdbc.url}"
+                        userId="${generator.jdbc.username}"
+                        password="${generator.jdbc.password}">
+            <!-- 配置表注释可读 -->
+            <property name="useInformationSchema" value="true"/>
+        </jdbcConnection>
+
+        <!-- model生成 -->
+        <javaModelGenerator targetPackage="${generator_javaModelGenerator_targetPackage}" targetProject="${targetProject}/src/main/java" />
+
+        <!-- MapperXML生成 -->
+        <sqlMapGenerator targetPackage="${generator_sqlMapGenerator_targetPackage}" targetProject="${targetProject_sqlMap}/src/main/java" />
+
+        <!-- Mapper接口生成 -->
+        <javaClientGenerator targetPackage="${generator_javaClientGenerator_targetPackage}" targetProject="${targetProject}/src/main/java" type="XMLMAPPER" />
+
+        <!-- Table Configurations -->
+        <table tableName="administrator" domainObjectName="Administrator">
+            <generatedKey column="administrator_id" sqlStatement="MySql" identity="true"/>
+
+            <columnOverride column="gmt_create" property="createTime"/>
+            <columnOverride column="gmt_modified" property="modifiedTime"/>
+        </table>
+        <table tableName="user" domainObjectName="User">
+            <generatedKey column="user_id" sqlStatement="MySql" identity="true"/>
+
+            <columnOverride column="gmt_create" property="createTime"/>
+            <columnOverride column="gmt_modified" property="modifiedTime"/>
+
+            <columnOverride column="is_locked" property="locked" javaType="Boolean"/>
+            <columnOverride column="sex" javaType="UserSexEnum"/>
+        </table>
+        <table tableName="shipping_address" domainObjectName="ShippingAddress">
+            <generatedKey column="shipping_address_id" sqlStatement="MySql" identity="true"/>
+
+            <columnOverride column="gmt_create" property="createTime"/>
+            <columnOverride column="gmt_modified" property="modifiedTime"/>
+
+            <columnOverride column="is_acquiescent" property="acquiescent" javaType="Boolean"/>
+            <columnOverride column="is_deleted" property="deleted" javaType="Boolean"/>
+        </table>
+        <table tableName="category" domainObjectName="Category">
+            <generatedKey column="category_id" sqlStatement="MySql" identity="true"/>
+
+            <columnOverride column="gmt_create" property="createTime"/>
+            <columnOverride column="gmt_modified" property="modifiedTime"/>
+
+            <columnOverride column="is_leaf" property="leaf" javaType="Boolean"/>
+            <columnOverride column="is_deleted" property="deleted" javaType="Boolean"/>
+            <columnOverride column="level" javaType="CategoryLevelEnum"/>
+        </table>
+        <table tableName="product" domainObjectName="Product">
+            <generatedKey column="product_id" sqlStatement="MySql" identity="true"/>
+
+            <columnOverride column="gmt_create" property="createTime"/>
+            <columnOverride column="gmt_modified" property="modifiedTime"/>
+
+            <columnOverride column="status" javaType="ProductStatusEnum"/>
+        </table>
+        <table tableName="order" domainObjectName="Order">
+            <generatedKey column="order_id" sqlStatement="MySql" identity="true"/>
+
+            <columnOverride column="gmt_create" property="createTime"/>
+            <columnOverride column="gmt_modified" property="modifiedTime"/>
+            <columnOverride column="gmt_consign" property="consignTime"/>
+            <columnOverride column="gmt_success" property="successTime"/>
+            <columnOverride column="gmt_close" property="closeTime"/>
+
+            <columnOverride column="status" javaType="OrderStatusEnum"/>
+        </table>
+        <table tableName="order_item" domainObjectName="OrderItem">
+            <generatedKey column="order_item_id" sqlStatement="MySql" identity="true"/>
+
+            <columnOverride column="gmt_create" property="createTime"/>
+            <columnOverride column="gmt_modified" property="modifiedTime"/>
+        </table>
+    </context>
+</generatorConfiguration>
