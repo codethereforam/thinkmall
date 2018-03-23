@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import priv.thinkam.thinkmall.common.base.Result;
-import priv.thinkam.thinkmall.common.util.Md5Util;
+import priv.thinkam.thinkmall.common.exception.UsernamePasswordNotMatchException;
 import priv.thinkam.thinkmall.dao.entity.Administrator;
 import priv.thinkam.thinkmall.service.AdministratorService;
 
@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * 后台登录控制器
@@ -97,19 +96,10 @@ public class ManageLoginController {
         username = StringUtils.trim(username);
         password = StringUtils.trim(password);
         // check whether username matches password
-        List<Administrator> administrators = administratorService.listByUsername(username);
-        boolean matching = false;
-        for (Administrator administrator : administrators) {
-            String salt = administrator.getSalt();
-            String realDigestPassword = administrator.getPassword();
-            String digestPassword = Md5Util.digest(password + salt);
-            logger.debug("realDigestPassword: {}, digestPassword: {}", realDigestPassword, digestPassword);
-            if (digestPassword != null && digestPassword.equalsIgnoreCase(realDigestPassword)) {
-                matching = true;
-                session.setAttribute(ADMINISTRATOR_IN_SESSION, administrator);
-            }
-        }
-        if (!matching) {
+        try {
+            Administrator administrator = administratorService.validate(username, password);
+            session.setAttribute(ADMINISTRATOR_IN_SESSION, administrator);
+        } catch (UsernamePasswordNotMatchException e) {
             return Result.create(false, "您输入的密码和账户名不匹配");
         }
         return Result.createWithoutData(true);

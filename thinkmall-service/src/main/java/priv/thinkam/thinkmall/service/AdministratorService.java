@@ -1,10 +1,9 @@
 package priv.thinkam.thinkmall.service;
 
 import priv.thinkam.thinkmall.common.base.BaseService;
+import priv.thinkam.thinkmall.common.exception.UsernamePasswordNotMatchException;
 import priv.thinkam.thinkmall.dao.entity.Administrator;
 import priv.thinkam.thinkmall.dao.entity.AdministratorExample;
-
-import java.util.List;
 
 /**
  * AdministratorService接口
@@ -15,9 +14,12 @@ import java.util.List;
 public interface AdministratorService extends BaseService<Administrator, AdministratorExample> {
 
     /**
-     * 根据用户名获取管理员集合
+     * 验证用户名密码
+     *
      * @param username 用户名
-     * @return 管理员集合
+     * @param password 密码
+     * @return 符合条件的用户
+     * @throws UsernamePasswordNotMatchException 如果用户名和密码不匹配
      */
-    List<Administrator> listByUsername(String username);
+    Administrator validate(String username, String password) throws UsernamePasswordNotMatchException;
 }
