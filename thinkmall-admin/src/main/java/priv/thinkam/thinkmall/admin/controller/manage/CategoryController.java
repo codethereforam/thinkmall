@@ -6,7 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import priv.thinkam.thinkmall.common.base.Result;
+import priv.thinkam.thinkmall.dao.entity.Category;
+import priv.thinkam.thinkmall.dao.entity.CategoryExample;
 import priv.thinkam.thinkmall.service.CategoryService;
+
+import java.util.List;
 
 /**
  * 类别控制器
@@ -24,5 +30,15 @@ public class CategoryController {
     @GetMapping("/index")
     public String index() {
         return "/manage/category/index.jsp";
+    }
+
+    @GetMapping("/list")
+    @ResponseBody
+    public Result list() {
+        CategoryExample example = new CategoryExample();
+        example.createCriteria().andDeletedEqualTo(false);
+        List<Category> categories = categoryService.selectByExample(example);
+        categories.forEach(e -> logger.debug(e.toString()));
+        return Result.create(true, categories);
     }
 }

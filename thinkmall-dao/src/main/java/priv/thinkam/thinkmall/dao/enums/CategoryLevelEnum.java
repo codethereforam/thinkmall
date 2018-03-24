@@ -1,5 +1,6 @@
 package priv.thinkam.thinkmall.dao.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import priv.thinkam.thinkmall.common.base.BaseEnum;
 
 /**
@@ -31,6 +32,7 @@ public enum CategoryLevelEnum implements BaseEnum {
     }
 
     @Override
+    @JsonValue
     public int getCode() {
         return code;
     }

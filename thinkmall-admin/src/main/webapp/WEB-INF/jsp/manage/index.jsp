@@ -8,7 +8,8 @@
     <title>index</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="${basePath}/assets/plugins/bootstrap-3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="${basePath}/assets/css/index.css">
+    <link rel="stylesheet" href="${basePath}/assets/css/manage/index.css">
+    <link rel="stylesheet" href="${basePath}/assets/css/main.css">
     <link rel="icon" type="image/png" sizes="16x16" href="${basePath}/assets/images/favicon.png">
 </head>
 <body>
@@ -100,7 +101,7 @@
 </div>
 <script src="${basePath}/assets/plugins/jquery-3.2.1/jquery-3.2.1.min.js"></script>
 <script src="${basePath}/assets/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-<script src="${basePath}/assets/js/index.js"></script>
+<script src="${basePath}/assets/js/manage/index.js"></script>
 <script>var BASE_PATH = '${basePath}';</script>
 </body>
 </html>
