@@ -35,9 +35,7 @@ public class CategoryController {
     @GetMapping("/list")
     @ResponseBody
     public Result list() {
-        CategoryExample example = new CategoryExample();
-        example.createCriteria().andDeletedEqualTo(false);
-        List<Category> categories = categoryService.selectByExample(example);
+        List<Category> categories = categoryService.selectByExample(new CategoryExample());
         categories.forEach(e -> logger.debug(e.toString()));
         return Result.create(true, categories);
     }

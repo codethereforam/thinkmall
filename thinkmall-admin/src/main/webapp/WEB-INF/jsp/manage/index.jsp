@@ -32,8 +32,7 @@
                 <li><a href="#">设置</a></li>
                 <li><a href="https://github.com/codethereforam/thinkmall">源码</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
                         系统 <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-left">

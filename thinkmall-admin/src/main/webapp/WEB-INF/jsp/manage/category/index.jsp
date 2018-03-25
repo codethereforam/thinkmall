@@ -15,6 +15,14 @@
 <div class="container">
     <div class="page-header">
         <div class="btn-group">
+            <button type="button" class="btn btn-default glyphicon glyphicon-th-list dropdown-toggle"
+                    data-toggle="dropdown" id="filterByDeletedBtn">
+                <span class="text">启用类别</span><span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" id="filterByDeletedMenu">
+                <li><a href="javascript:void(0)" class="all-category">全部类别</a></li>
+                <li><a href="javascript:void(0)" class="enabled-category">启用类别</a></li>
+            </ul>
             <button class="btn btn-success glyphicon glyphicon-plus" data-toggle="modal"
                     data-target="#addDiv">添加类别
             </button>
@@ -49,10 +57,52 @@
     </div>--%>
     <div class="row">
         <div class="col-sm-3">
-            <ul id="treeDemo" class="ztree"></ul>
+            <ul id="categoryTreeBlock" class="ztree"></ul>
         </div>
         <div class="col-sm-9">
-            <h1>hello</h1>
+            <form method="post" action="#" class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">类别名称</label>
+                    <div class="col-sm-3">
+                        <input type="text" id="inputName" name="name" class="form-control" placeholder="非空"
+                               autofocus required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputParentName" class="col-sm-2 control-label">父类别名称</label>
+                    <div class="col-sm-3">
+                        <input type="text" id="inputParentName" name="parentName" value="aaa"
+                               class="form-control" required/>
+                    </div>
+                    <button class="btn btn-primary" type="button">选择父类别</button>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">是否启用</label>
+                    <div class="radio col-sm-3">
+                        <label class="radio-inline">
+                            <input type="radio" name="deleted" value="false" checked>启用
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="deleted" value="true">禁用
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputDescription" class="col-sm-2 control-label">类别描述</label>
+                    <div class="col-sm-4">
+                        <textarea id="inputDescription" name="description" class="form-control" cols="30"
+                                  rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 col-sm-offset-2">
+                        <button type="submit" class="btn btn-success btn-block">修改</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="reset" class="btn btn-danger btn-block">重置</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
