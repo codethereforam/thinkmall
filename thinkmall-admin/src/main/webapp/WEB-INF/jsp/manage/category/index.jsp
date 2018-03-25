@@ -28,6 +28,9 @@
             </button>
         </div>
         <span class="text-primary h2 col-sm-offset-2"><em>类别详情</em></span>
+        <div class="btn-group pull-right">
+            <button class="btn btn-warning glyphicon glyphicon-refresh" id="refreshBtn" title="刷新"></button>
+        </div>
     </div>
     <div class="row">
         <div class="col-sm-3">
@@ -105,17 +108,17 @@
     </div>
 </div>
 <%-- parent can not select modal--%>
-<div class="modal fade" id="errorHintModal">
+<div class="modal fade" id="hintModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header bg-warning">
+            <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">
                     <span>&times;</span>
                 </button>
                 <h4 class="modal-title">信息</h4>
             </div>
-            <div class="modal-body text-danger">
-                <h5><span id="errorHintContent"></span></h5>
+            <div class="modal-body">
+                <h5><span id="hintContent"></span></h5>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">知道了</button>

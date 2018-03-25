@@ -36,7 +36,8 @@ jQuery(function ($) {
     var inputParentName = $('#inputParentName');
     var originalLevel;
 
-    var updateFormFieldset = $('#updateForm').find('fieldset');
+    var updateForm = $('#updateForm');
+    var updateFormFieldset = updateForm.find('fieldset');
 
     // 类别树节点被点击相应的事件
     function onCategoryTreeNodeClick(event, treeId, treeNode) {
@@ -61,11 +62,28 @@ jQuery(function ($) {
         inputCreateTime.val(treeNode.createTime);
     }
 
+    var hintModal = $('#hintModal');
+    var hintContent = $('#hintContent');
+    var hintModalHeader = hintModal.find('.modal-header');
+    var hintModalBody = hintModal.find('.modal-body');
+
+    // 显示提示框
+    function showHintModal(message, success) {
+        if(success) {
+            hintModalHeader.attr('class', 'modal-header bg-success');
+            hintModalBody.attr('class', 'modal-body text-success');
+        } else {
+            hintModalHeader.attr('class', 'modal-header bg-warning');
+            hintModalBody.attr('class', 'modal-body text-warning');
+        }
+        hintContent.text(message);
+        hintModal.modal();
+    }
+
     // 类别选择树节点被点击相应的事件
     function onCategorySelectTreeNodeClick(event, treeId, treeNode) {
         if(treeNode.level >= originalLevel) {
-            $('#errorHintContent').text('不能降低原级别，请选择比原级别小的父类别');
-            $('#errorHintModal').modal();
+            showHintModal('不能降低原级别，请选择比原级别小的父类别', false);
             return;
         }
         inputParentName.val(treeNode.name);
@@ -89,6 +107,7 @@ jQuery(function ($) {
                 };
                 allCategories.push(rootCategory);
                 console.log(allCategories);
+                enabledCategories = [];
                 for (var i in allCategories) {
                     var category = allCategories[i];
                     if (!category.deleted) {
@@ -155,19 +174,37 @@ jQuery(function ($) {
             };
             console.log(category);
             $.post(BASE_PATH + '/manage/category/update', category, function (data) {
-                console.log(data);
+                if(data.success) {
+                    showHintModal('修改成功', true);
+                    getCategoriesAndInitTree();
+                } else {
+                    // TODO: redirect to error page
+                }
             });
+        });
+    }
+
+    function disableUpdateForm() {
+        updateFormFieldset.attr("disabled", "disabled");
+    }
+
+    function initRefreshListener() {
+        $("#refreshBtn").click(function () {
+            getCategoriesAndInitTree();
+            document.querySelector('#updateForm').reset();
+            disableUpdateForm();
+            $("#filterByDeletedBtn").find(".text").text('启用类别');
         });
     }
 
     function init() {
         // disable form by default
-        updateFormFieldset.attr("disabled", "disabled");
-
+        disableUpdateForm();
         getCategoriesAndInitTree();
         initFilterByDeleted();
         initBindSelectParentEvent();
         initUpdateListener();
+        initRefreshListener();
     }
 
     $(document).ready(function () {
