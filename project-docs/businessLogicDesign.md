@@ -66,7 +66,6 @@ category_id | unsigned bigint | 类别编号
 name | varchar(20) | 类别名称
 description | varchar(255) | 类别描述
 parent_id | unsigned bigint | 父类别编号（0代表是根类别）
-is_leaf | unsigned tinyint(1) | 是否为叶子节点（0：否，1：是）
 level | unsigned tinyint(2) | 类别层次（只能为1或2或3）
 is_deleted | unsigned tinyint(1) | 是否删除（0：正常，1：删除）
 gmt_create | datetime(3) | 创建时间

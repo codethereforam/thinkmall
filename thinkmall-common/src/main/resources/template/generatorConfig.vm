@@ -69,7 +69,6 @@
             <columnOverride column="gmt_create" property="createTime"/>
             <columnOverride column="gmt_modified" property="modifiedTime"/>
 
-            <columnOverride column="is_leaf" property="leaf" javaType="Boolean"/>
             <columnOverride column="is_deleted" property="deleted" javaType="Boolean"/>
             <columnOverride column="level" javaType="CategoryLevelEnum"/>
         </table>

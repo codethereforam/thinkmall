@@ -53,13 +53,7 @@ public class CategoryController {
         //TODO:check parameter
         // update modifiedTime
         category.setModifiedTime(new Date());
-        // check and set parent isLeaf
-        Long parentId = category.getParentId();
-        Category parentCategory = categoryService.selectByPrimaryKey(parentId);
-        if(parentCategory.getLeaf()) {
-            parentCategory.setLeaf(false);
-            categoryService.updateByPrimaryKey(parentCategory);
-        }
+        categoryService.updateByPrimaryKey(category);
         return Result.createWithoutData(true);
     }
 }

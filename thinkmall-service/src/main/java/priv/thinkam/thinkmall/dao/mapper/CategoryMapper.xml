@@ -6,7 +6,6 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="parent_id" jdbcType="BIGINT" property="parentId" />
-    <result column="is_leaf" jdbcType="TINYINT" property="leaf" />
     <result column="level" jdbcType="TINYINT" property="level" />
     <result column="is_deleted" jdbcType="TINYINT" property="deleted" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="createTime" />
@@ -71,8 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    category_id, name, description, parent_id, is_leaf, level, is_deleted, gmt_create, 
-    gmt_modified
+    category_id, name, description, parent_id, level, is_deleted, gmt_create, gmt_modified
   </sql>
   <select id="selectByExample" parameterType="priv.thinkam.thinkmall.dao.entity.CategoryExample" resultMap="BaseResultMap">
     select
@@ -109,11 +107,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into category (name, description, parent_id, 
-      is_leaf, level, is_deleted, 
-      gmt_create, gmt_modified)
+      level, is_deleted, gmt_create, 
+      gmt_modified)
     values (#{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, 
-      #{leaf,jdbcType=TINYINT}, #{level,jdbcType=TINYINT}, #{deleted,jdbcType=TINYINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP})
+      #{level,jdbcType=TINYINT}, #{deleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifiedTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="priv.thinkam.thinkmall.dao.entity.Category">
     <selectKey keyProperty="categoryId" order="AFTER" resultType="java.lang.Long">
@@ -129,9 +127,6 @@
       </if>
       <if test="parentId != null">
         parent_id,
-      </if>
-      <if test="leaf != null">
-        is_leaf,
       </if>
       <if test="level != null">
         level,
@@ -155,9 +150,6 @@
       </if>
       <if test="parentId != null">
         #{parentId,jdbcType=BIGINT},
-      </if>
-      <if test="leaf != null">
-        #{leaf,jdbcType=TINYINT},
       </if>
       <if test="level != null">
         #{level,jdbcType=TINYINT},
@@ -194,9 +186,6 @@
       <if test="record.parentId != null">
         parent_id = #{record.parentId,jdbcType=BIGINT},
       </if>
-      <if test="record.leaf != null">
-        is_leaf = #{record.leaf,jdbcType=TINYINT},
-      </if>
       <if test="record.level != null">
         level = #{record.level,jdbcType=TINYINT},
       </if>
@@ -220,7 +209,6 @@
       name = #{record.name,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
       parent_id = #{record.parentId,jdbcType=BIGINT},
-      is_leaf = #{record.leaf,jdbcType=TINYINT},
       level = #{record.level,jdbcType=TINYINT},
       is_deleted = #{record.deleted,jdbcType=TINYINT},
       gmt_create = #{record.createTime,jdbcType=TIMESTAMP},
@@ -240,9 +228,6 @@
       </if>
       <if test="parentId != null">
         parent_id = #{parentId,jdbcType=BIGINT},
-      </if>
-      <if test="leaf != null">
-        is_leaf = #{leaf,jdbcType=TINYINT},
       </if>
       <if test="level != null">
         level = #{level,jdbcType=TINYINT},
@@ -264,7 +249,6 @@
     set name = #{name,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       parent_id = #{parentId,jdbcType=BIGINT},
-      is_leaf = #{leaf,jdbcType=TINYINT},
       level = #{level,jdbcType=TINYINT},
       is_deleted = #{deleted,jdbcType=TINYINT},
       gmt_create = #{createTime,jdbcType=TIMESTAMP},

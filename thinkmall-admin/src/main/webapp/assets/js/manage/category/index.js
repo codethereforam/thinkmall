@@ -31,7 +31,6 @@ jQuery(function ($) {
     var inputName = $('#inputName');
     var inputDescription = $('#inputDescription');
     var inputParentId = $('#inputParentId');
-    var inputLeaf = $('#inputLeaf');
     var inputLevel = $('#inputLevel');
     var inputCreateTime = $('#inputCreateTime');
     var inputParentName = $('#inputParentName');
@@ -52,7 +51,6 @@ jQuery(function ($) {
         inputDescription.val(treeNode.description);
         inputParentName.val(parentNode === null ? '无' : parentNode.name);
         inputParentId.val(parentNode === null ? -1 : parentNode.categoryId);
-        inputLeaf.val(treeNode.leaf);
         inputLevel.val(treeNode.level);
         originalLevel = treeNode.level;
         if (treeNode.deleted) {
@@ -85,7 +83,6 @@ jQuery(function ($) {
                     categoryId: 0,
                     name: "根类别",
                     description: "根类别",
-                    leaf: false,
                     level: 0,
                     deleted: false,
                     open: true
@@ -152,7 +149,6 @@ jQuery(function ($) {
                 name: inputName.val(),
                 description: inputDescription.val(),
                 parentId: inputParentId.val(),
-                leaf: inputLeaf.val(),
                 level: inputLevel.val(),
                 deleted: $('input[name="deleted"]:checked').val(),
                 createTime: inputCreateTime.val()

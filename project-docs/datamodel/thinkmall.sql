@@ -56,7 +56,6 @@ CREATE TABLE `category` (
   `name` varchar(20) NOT NULL COMMENT '类别名称',
   `description` varchar(255) DEFAULT NULL COMMENT '类别描述',
   `parent_id` bigint(20) unsigned NOT NULL COMMENT '父类别编号（0代表是根类别）',
-  `is_leaf` tinyint(1) unsigned NOT NULL COMMENT '是否为叶子节点（0：否，1：是）',
   `level` tinyint(2) unsigned NOT NULL COMMENT ' 类别层次（只能为1或2或3）',
   `is_deleted` tinyint(1) unsigned NOT NULL COMMENT '是否删除（0：正常，1：删除）',
   `gmt_create` datetime(3) NOT NULL COMMENT '创建时间',

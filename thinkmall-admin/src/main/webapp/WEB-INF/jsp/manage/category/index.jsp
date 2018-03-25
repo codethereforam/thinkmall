@@ -29,33 +29,6 @@
         </div>
         <span class="text-primary h2 col-sm-offset-2"><em>类别详情</em></span>
     </div>
-    <%--<div class="modal fade" id="addDiv">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                    <h4 class="text-center">add user</h4>
-                </div>
-                <form action="#" method="post">
-                    <div class="modal-body form-group">
-                        <label for="usernameInput">username</label>
-                        <input type="text" id="usernameInput" name="username">
-                    </div>
-                    <div class="modal-body form-group">
-                        <label for="passwordInput">password</label>
-                        <input type="password" id="passwordInput" name="password">
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-dismiss="modal">
-                            summit
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>--%>
     <div class="row">
         <div class="col-sm-3">
             <ul id="categoryTreeBlock" class="ztree"></ul>
@@ -65,7 +38,6 @@
                 <fieldset>
                     <input type="hidden" id="inputCategoryId" name="categoryId"/>
                     <input type="hidden" id="inputParentId" name="parentId"/>
-                    <input type="hidden" id="inputLeaf" name="leaf"/>
                     <input type="hidden" id="inputLevel" name="level"/>
                     <input type="hidden" id="inputCreateTime" name="createTime"/>
                     <div class="form-group">

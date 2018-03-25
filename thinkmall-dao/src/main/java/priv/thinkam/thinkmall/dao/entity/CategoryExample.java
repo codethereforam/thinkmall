@@ -367,66 +367,6 @@ public class CategoryExample {
             return (Criteria) this;
         }
 
-        public Criteria andLeafIsNull() {
-            addCriterion("is_leaf is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andLeafIsNotNull() {
-            addCriterion("is_leaf is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andLeafEqualTo(Boolean value) {
-            addCriterion("is_leaf =", value, "leaf");
-            return (Criteria) this;
-        }
-
-        public Criteria andLeafNotEqualTo(Boolean value) {
-            addCriterion("is_leaf <>", value, "leaf");
-            return (Criteria) this;
-        }
-
-        public Criteria andLeafGreaterThan(Boolean value) {
-            addCriterion("is_leaf >", value, "leaf");
-            return (Criteria) this;
-        }
-
-        public Criteria andLeafGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("is_leaf >=", value, "leaf");
-            return (Criteria) this;
-        }
-
-        public Criteria andLeafLessThan(Boolean value) {
-            addCriterion("is_leaf <", value, "leaf");
-            return (Criteria) this;
-        }
-
-        public Criteria andLeafLessThanOrEqualTo(Boolean value) {
-            addCriterion("is_leaf <=", value, "leaf");
-            return (Criteria) this;
-        }
-
-        public Criteria andLeafIn(List<Boolean> values) {
-            addCriterion("is_leaf in", values, "leaf");
-            return (Criteria) this;
-        }
-
-        public Criteria andLeafNotIn(List<Boolean> values) {
-            addCriterion("is_leaf not in", values, "leaf");
-            return (Criteria) this;
-        }
-
-        public Criteria andLeafBetween(Boolean value1, Boolean value2) {
-            addCriterion("is_leaf between", value1, value2, "leaf");
-            return (Criteria) this;
-        }
-
-        public Criteria andLeafNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("is_leaf not between", value1, value2, "leaf");
-            return (Criteria) this;
-        }
-
         public Criteria andLevelIsNull() {
             addCriterion("level is null");
             return (Criteria) this;

@@ -46,7 +46,6 @@ public class CategoryServiceTest {
             category.setName("c" + (i + 1));
             category.setDescription("c" + (i + 1) + " desc");
             category.setParentId((long) 0);
-            category.setLeaf(true);
             category.setLevel(level);
             category.setDeleted(false);
             category.setCreateTime(now);
@@ -82,7 +81,6 @@ public class CategoryServiceTest {
         category.setName("t");
         category.setDescription("t desc");
         category.setParentId((long) 0);
-        category.setLeaf(true);
         category.setLevel(CategoryLevelEnum.ONE);
         category.setDeleted(false);
         category.setCreateTime(now);

@@ -8,7 +8,7 @@ import java.util.Date;
  * 类别
  *
  * @author thinkam
- * @date 2018/03/22
+ * @date 2018/03/25
  */
 public class Category {
     /**
@@ -30,11 +30,6 @@ public class Category {
      * 父类别编号（0代表是根类别）
      */
     private Long parentId;
-
-    /**
-     * 是否为叶子节点（0：否，1：是）
-     */
-    private Boolean leaf;
 
     /**
      *  类别层次（只能为1或2或3）
@@ -88,14 +83,6 @@ public class Category {
         this.parentId = parentId;
     }
 
-    public Boolean getLeaf() {
-        return leaf;
-    }
-
-    public void setLeaf(Boolean leaf) {
-        this.leaf = leaf;
-    }
-
     public CategoryLevelEnum getLevel() {
         return level;
     }
@@ -138,7 +125,6 @@ public class Category {
         sb.append(", name=").append(name);
         sb.append(", description=").append(description);
         sb.append(", parentId=").append(parentId);
-        sb.append(", leaf=").append(leaf);
         sb.append(", level=").append(level);
         sb.append(", deleted=").append(deleted);
         sb.append(", createTime=").append(createTime);
@@ -163,7 +149,6 @@ public class Category {
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
             && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
-            && (this.getLeaf() == null ? other.getLeaf() == null : this.getLeaf().equals(other.getLeaf()))
             && (this.getLevel() == null ? other.getLevel() == null : this.getLevel().equals(other.getLevel()))
             && (this.getDeleted() == null ? other.getDeleted() == null : this.getDeleted().equals(other.getDeleted()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -178,7 +163,6 @@ public class Category {
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         result = prime * result + ((getParentId() == null) ? 0 : getParentId().hashCode());
-        result = prime * result + ((getLeaf() == null) ? 0 : getLeaf().hashCode());
         result = prime * result + ((getLevel() == null) ? 0 : getLevel().hashCode());
         result = prime * result + ((getDeleted() == null) ? 0 : getDeleted().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
