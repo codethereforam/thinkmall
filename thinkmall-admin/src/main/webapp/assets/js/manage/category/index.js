@@ -27,10 +27,15 @@ jQuery(function ($) {
     //启用类别
     var enabledCategories = [];
 
+    var inputCategoryId = $('#inputCategoryId');
     var inputName = $('#inputName');
-    var inputParentName = $('#inputParentName');
-    var inputParentId = $('#inputParentId');
     var inputDescription = $('#inputDescription');
+    var inputParentId = $('#inputParentId');
+    var inputLeaf = $('#inputLeaf');
+    var inputLevel = $('#inputLevel');
+    var inputCreateTime = $('#inputCreateTime');
+    var inputParentName = $('#inputParentName');
+    var originalLevel;
 
     var updateFormFieldset = $('#updateForm').find('fieldset');
 
@@ -42,28 +47,33 @@ jQuery(function ($) {
         } else {
             updateFormFieldset.removeAttr("disabled");
         }
+        inputCategoryId.val(treeNode.categoryId);
         inputName.val(treeNode.name);
+        inputDescription.val(treeNode.description);
         inputParentName.val(parentNode === null ? '无' : parentNode.name);
         inputParentId.val(parentNode === null ? -1 : parentNode.categoryId);
-        console.log(inputParentId.val());
-        // console.log($('input[name="deleted"]:checked').val());
+        inputLeaf.val(treeNode.leaf);
+        inputLevel.val(treeNode.level);
+        originalLevel = treeNode.level;
         if (treeNode.deleted) {
             $('input[name="deleted"]')[1].checked = true;
         } else {
             $('input[name="deleted"]')[0].checked = true;
         }
-        inputDescription.val(treeNode.description);
+        inputCreateTime.val(treeNode.createTime);
     }
 
     // 类别选择树节点被点击相应的事件
     function onCategorySelectTreeNodeClick(event, treeId, treeNode) {
-        if (treeNode.level === 3) {
-            $('#parentCannotSelectModal').modal();
-        } else {
-            inputParentName.val(treeNode.name);
-            inputParentId.val(treeNode.categoryId);
-            parentSelectModal.modal('hide');
+        if(treeNode.level >= originalLevel) {
+            $('#errorHintContent').text('不能降低原级别，请选择比原级别小的父类别');
+            $('#errorHintModal').modal();
+            return;
         }
+        inputParentName.val(treeNode.name);
+        inputParentId.val(treeNode.categoryId);
+        inputLevel.val(treeNode.level + 1);
+        parentSelectModal.modal('hide');
     }
 
     // 获取所有类别并初始化类别树
@@ -129,6 +139,31 @@ jQuery(function ($) {
         });
     }
 
+    function initUpdateListener() {
+        $('#updateBtn').click(function () {
+            // report validity
+            var valid = document.querySelector("#updateForm").reportValidity();
+            if (!valid) {
+                return;
+            }
+            // send post request
+            var category = {
+                categoryId: inputCategoryId.val(),
+                name: inputName.val(),
+                description: inputDescription.val(),
+                parentId: inputParentId.val(),
+                leaf: inputLeaf.val(),
+                level: inputLevel.val(),
+                deleted: $('input[name="deleted"]:checked').val(),
+                createTime: inputCreateTime.val()
+            };
+            console.log(category);
+            $.post(BASE_PATH + '/manage/category/update', category, function (data) {
+                console.log(data);
+            });
+        });
+    }
+
     function init() {
         // disable form by default
         updateFormFieldset.attr("disabled", "disabled");
@@ -136,6 +171,7 @@ jQuery(function ($) {
         getCategoriesAndInitTree();
         initFilterByDeleted();
         initBindSelectParentEvent();
+        initUpdateListener();
     }
 
     $(document).ready(function () {

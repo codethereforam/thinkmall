@@ -16,7 +16,7 @@ public class EnumUtil {
      * @param <E> 枚举类型
      * @return 枚举类型
      */
-    public static <E extends Enum<?> & BaseEnum> E codeOf(Class<E> enumClass, int code) {
+    public static <E extends BaseEnum> E codeOf(Class<E> enumClass, int code) {
         E[] enumConstants = enumClass.getEnumConstants();
         for (E e : enumConstants) {
             if (e.getCode() == code) {

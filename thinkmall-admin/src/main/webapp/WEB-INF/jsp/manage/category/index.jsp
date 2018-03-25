@@ -61,8 +61,13 @@
             <ul id="categoryTreeBlock" class="ztree"></ul>
         </div>
         <div class="col-sm-9">
-            <form id="updateForm" method="post" action="#" class="form-horizontal">
+            <form id="updateForm" class="form-horizontal">
                 <fieldset>
+                    <input type="hidden" id="inputCategoryId" name="categoryId"/>
+                    <input type="hidden" id="inputParentId" name="parentId"/>
+                    <input type="hidden" id="inputLeaf" name="leaf"/>
+                    <input type="hidden" id="inputLevel" name="level"/>
+                    <input type="hidden" id="inputCreateTime" name="createTime"/>
                     <div class="form-group">
                         <label for="inputName" class="col-sm-2 control-label">类别名称</label>
                         <div class="col-sm-3">
@@ -75,7 +80,6 @@
                         <div class="col-sm-3">
                             <input type="text" id="inputParentName" name="parentName"
                                    class="form-control" required/>
-                            <input type="hidden" id="inputParentId" name="parentId"/>
                         </div>
                         <button class="btn btn-primary" type="button" id="parentSelectBtn">选择父类别</button>
                     </div>
@@ -99,7 +103,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-2 col-sm-offset-2">
-                            <button type="submit" class="btn btn-success btn-block" id="updateBtn">修改</button>
+                            <button type="button" class="btn btn-success btn-block" id="updateBtn">修改</button>
                         </div>
                         <div class="col-sm-2">
                             <button type="reset" class="btn btn-danger btn-block">重置</button>
@@ -129,7 +133,7 @@
     </div>
 </div>
 <%-- parent can not select modal--%>
-<div class="modal fade" id="parentCannotSelectModal">
+<div class="modal fade" id="errorHintModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-warning">
@@ -139,7 +143,7 @@
                 <h4 class="modal-title">信息</h4>
             </div>
             <div class="modal-body text-danger">
-                <h5>无法选择三级类别，请选择父类别</h5>
+                <h5><span id="errorHintContent"></span></h5>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">知道了</button>

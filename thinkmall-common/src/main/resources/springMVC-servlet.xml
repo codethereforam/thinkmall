@@ -20,5 +20,14 @@
     <!-- 启动aop注解基于类的代理（这时需要cglib库），如果proxy-target-class属值被设置为false或者这个属性被省略，那么标准的JDK 基于接口的代理将起作用 -->
     <aop:config proxy-target-class="true"/>
 
-    <mvc:annotation-driven/>
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="priv.thinkam.thinkmall.dao.converter.StringToBaseEnumConverter" />
+                <bean class="priv.thinkam.thinkmall.dao.converter.StringToDateConverter" />
+            </set>
+        </property>
+    </bean>
+
+    <mvc:annotation-driven conversion-service="conversionService"/>
 </beans>
