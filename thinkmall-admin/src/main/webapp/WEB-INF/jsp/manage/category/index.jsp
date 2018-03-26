@@ -24,7 +24,7 @@
                 <li><a href="javascript:void(0)" class="enabled-category">启用类别</a></li>
             </ul>
             <button class="btn btn-success glyphicon glyphicon-plus" data-toggle="modal"
-                    data-target="#addDiv">添加类别
+                    data-target="#addModal">添加类别
             </button>
         </div>
         <span class="text-primary h2 col-sm-offset-2"><em>类别详情</em></span>
@@ -89,7 +89,7 @@
         </div>
     </div>
 </div>
-<%-- category select modal--%>
+<%-- parent category select modal--%>
 <div class="modal fade" id="parentSelectModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -107,7 +107,80 @@
         </div>
     </div>
 </div>
-<%-- parent can not select modal--%>
+<%-- add category modal --%>
+<div class="modal fade" id="addModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+                <h4 class="modal-title">添加类别</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addForm" class="form-horizontal">
+                    <input type="hidden" id="inputAddParentId" name="parentId"/>
+                    <input type="hidden" id="inputAddLevel" name="level"/>
+                    <div class="form-group">
+                        <label for="inputAddName" class="col-sm-2 control-label">类别名称</label>
+                        <div class="col-sm-3">
+                            <input id="inputAddName" type="text" name="name" class="form-control" placeholder="非空"
+                                   autofocus required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAddParentName" class="col-sm-2 control-label">父类别名称</label>
+                        <div class="col-sm-3">
+                            <input id="inputAddParentName" type="text" name="parentName"
+                                   class="form-control" required/>
+                        </div>
+                        <button class="btn btn-primary" type="button" id="parentSelectAddBtn">选择父类别</button>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">是否启用</label>
+                        <div class="radio col-sm-3">
+                            <label class="radio-inline">
+                                <input type="radio" name="deleted" value="false" checked>启用
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="deleted" value="true">禁用
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAddDescription" class="col-sm-2 control-label">类别描述</label>
+                        <div class="col-sm-4">
+                            <textarea id="inputAddDescription"  name="description" class="form-control" cols="30"
+                                  rows="5"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="addBtn">添加</button>
+            </div>
+        </div>
+    </div>
+</div>
+<%-- parent category select add modal--%>
+<div class="modal fade" id="parentSelectAddModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+                <h4 class="modal-title">选择父类别</h4>
+            </div>
+            <div class="modal-body">
+                <ul id="categorySelectTreeAddBlock" class="ztree">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<%-- hint modal--%>
 <div class="modal fade" id="hintModal">
     <div class="modal-dialog">
         <div class="modal-content">

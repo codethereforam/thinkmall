@@ -22,6 +22,12 @@ jQuery(function ($) {
             onClick: onCategorySelectTreeNodeClick
         }
     };
+    var categoryAddSelectTreeSetting = {
+        data: treeSettingData,
+        callback: {
+            onClick: onCategoryAddSelectTreeNodeClick
+        }
+    };
     // 所有类别
     var allCategories = [];
     //启用类别
@@ -55,9 +61,9 @@ jQuery(function ($) {
         inputLevel.val(treeNode.level);
         originalLevel = treeNode.level;
         if (treeNode.deleted) {
-            $('input[name="deleted"]')[1].checked = true;
+            updateForm.find('input[name="deleted"]')[1].checked = true;
         } else {
-            $('input[name="deleted"]')[0].checked = true;
+            updateForm.find('input[name="deleted"]')[0].checked = true;
         }
         inputCreateTime.val(treeNode.createTime);
     }
@@ -69,7 +75,7 @@ jQuery(function ($) {
 
     // 显示提示框
     function showHintModal(message, success) {
-        if(success) {
+        if (success) {
             hintModalHeader.attr('class', 'modal-header bg-success');
             hintModalBody.attr('class', 'modal-body text-success');
         } else {
@@ -82,7 +88,7 @@ jQuery(function ($) {
 
     // 类别选择树节点被点击相应的事件
     function onCategorySelectTreeNodeClick(event, treeId, treeNode) {
-        if(treeNode.level >= originalLevel) {
+        if (treeNode.level >= originalLevel) {
             showHintModal('不能降低原级别，请选择比原级别小的父类别', false);
             return;
         }
@@ -90,6 +96,17 @@ jQuery(function ($) {
         inputParentId.val(treeNode.categoryId);
         inputLevel.val(treeNode.level + 1);
         parentSelectModal.modal('hide');
+    }
+
+    function onCategoryAddSelectTreeNodeClick(event, treeId, treeNode) {
+        if (treeNode.level === 3) {
+            showHintModal('不能选择三级类别，请重新选择', false);
+            return;
+        }
+        inputAddParentName.val(treeNode.name);
+        inputAddParentId.val(treeNode.categoryId);
+        inputAddLevel.val(treeNode.level + 1);
+        parentSelectAddModal.modal('hide');
     }
 
     // 获取所有类别并初始化类别树
@@ -135,6 +152,18 @@ jQuery(function ($) {
         });
     }
 
+    var parentSelectAddModal = $('#parentSelectAddModal');
+    var categorySelectTreeAddBlock = $('#categorySelectTreeAddBlock');
+
+    function initBindAddSelectParentEvent() {
+        $('#parentSelectAddBtn, #inputAddParentName').click(function () {
+            // set parentSelectModal content
+            $.fn.zTree.init(categorySelectTreeAddBlock, categoryAddSelectTreeSetting, enabledCategories);
+            // open modal
+            parentSelectAddModal.modal();
+        });
+    }
+
     // 根据类别启用状态过滤
     function initFilterByDeleted() {
         $("#filterByDeletedMenu").find("li a").click(function () {
@@ -169,16 +198,53 @@ jQuery(function ($) {
                 description: inputDescription.val(),
                 parentId: inputParentId.val(),
                 level: inputLevel.val(),
-                deleted: $('input[name="deleted"]:checked').val(),
+                deleted: updateForm.find('input[name="deleted"]:checked').val(),
                 createTime: inputCreateTime.val()
             };
             console.log(category);
             $.post(BASE_PATH + '/manage/category/update', category, function (data) {
-                if(data.success) {
+                if (data.success) {
+                    reset();
                     showHintModal('修改成功', true);
-                    getCategoriesAndInitTree();
                 } else {
-                    window.location.href = BASE_PATH + "/manage/errorPage";
+                    showHintModal(data.data + ', 更新失败', false);
+                }
+            });
+        });
+    }
+
+    var inputAddName = $('#inputAddName');
+    var inputAddDescription = $('#inputAddDescription');
+    var inputAddParentId = $('#inputAddParentId');
+    var inputAddLevel = $('#inputAddLevel');
+    var inputAddParentName = $('#inputAddParentName');
+    var addForm = $('#addForm');
+    var addModal = $('#addModal');
+
+    function initAddListener() {
+        $('#addBtn').click(function () {
+            // report validity
+            var valid = document.querySelector("#addForm").reportValidity();
+            if (!valid) {
+                return;
+            }
+            // send post request
+            var category = {
+                name: inputAddName.val(),
+                description: inputAddDescription.val(),
+                parentId: inputAddParentId.val(),
+                level: inputAddLevel.val(),
+                deleted: addForm.find('input[name="deleted"]:checked').val()
+            };
+            console.log(category);
+            $.post(BASE_PATH + '/manage/category/add', category, function (data) {
+                if (data.success) {
+                    reset();
+                    showHintModal('添加成功', true);
+                    // hide add modal
+                    addModal.modal('hide');
+                } else {
+                    showHintModal(data.data + ', 添加失败', false);
                 }
             });
         });
@@ -188,12 +254,20 @@ jQuery(function ($) {
         updateFormFieldset.attr("disabled", "disabled");
     }
 
+    // 重置页面
+    function reset() {
+        getCategoriesAndInitTree();
+        // reset update form
+        document.querySelector('#updateForm').reset();
+        // reset add form
+        document.querySelector('#addForm').reset();
+        disableUpdateForm();
+        $("#filterByDeletedBtn").find(".text").text('启用类别');
+    }
+
     function initRefreshListener() {
         $("#refreshBtn").click(function () {
-            getCategoriesAndInitTree();
-            document.querySelector('#updateForm').reset();
-            disableUpdateForm();
-            $("#filterByDeletedBtn").find(".text").text('启用类别');
+            reset();
         });
     }
 
@@ -204,7 +278,9 @@ jQuery(function ($) {
         initFilterByDeleted();
         initBindSelectParentEvent();
         initUpdateListener();
+        initAddListener();
         initRefreshListener();
+        initBindAddSelectParentEvent();
     }
 
     $(document).ready(function () {
