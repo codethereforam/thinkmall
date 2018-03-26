@@ -7,11 +7,40 @@
           http://www.springframework.org/schema/tx
           http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp2.BasicDataSource">
-        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+    <bean id="dataSource" init-method="init" destroy-method="close"
+          class="com.alibaba.druid.pool.DruidDataSource">
+        <!-- Druid会自动跟url识别驱动类名，如果连接的数据库非常见数据库，配置属性driverClassName -->
+        <!-- 基本属性 url、user、password -->
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
+        <!-- 初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时 -->
+        <property name="initialSize" value="${jdbc.initialSize}"/>
+        <!-- 最小连接池数量 -->
+        <property name="minIdle" value="${jdbc.minIdle}"/>
+        <!-- 最大连接池数量 -->
+        <property name="maxActive" value="${jdbc.maxActive}"/>
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="60000"/>
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <!-- 用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。如果validationQuery为null，
+        testOnBorrow、testOnReturn、testWhileIdle都不会起作用 -->
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <!-- 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，
+        如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。 -->
+        <property name="testWhileIdle" value="true"/>
+        <!-- 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能 -->
+        <property name="testOnBorrow" value="false"/>
+        <!-- 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。 -->
+        <property name="testOnReturn" value="false"/>
+        <!-- 配置监控统计拦截和解密的filters -->
+        <property name="filters" value="stat,config,log4j2"/>
+        <!-- 提示Druid数据源需要对数据库密码进行解密 -->
+        <property name="connectionProperties"
+                  value="config.decrypt=true;config.decrypt.key=${jdbc.publickey}"/>
     </bean>
 
     <!-- 为Mybatis创建SqlSessionFactory，同时指定数据源 -->

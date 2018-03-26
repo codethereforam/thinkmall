@@ -41,7 +41,6 @@ public class CategoryController {
     @ResponseBody
     public Result list() {
         List<Category> categories = categoryService.selectByExample(new CategoryExample());
-        categories.forEach(e -> logger.debug(e.toString()));
         return Result.create(true, categories);
     }
 

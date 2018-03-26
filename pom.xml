@@ -115,9 +115,9 @@
             </dependency>
             <!-- database connection pool -->
             <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-dbcp2</artifactId>
-                <version>2.1.1</version>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>1.1.9</version>
             </dependency>
             <!-- common utils -->
             <dependency>
