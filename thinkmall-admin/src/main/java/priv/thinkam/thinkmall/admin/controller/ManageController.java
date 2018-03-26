@@ -21,4 +21,9 @@ public class ManageController {
     public String redirect() {
         return "/redirect.jsp";
     }
+
+    @GetMapping("/errorPage")
+    public String errorPage() {
+        return "/500.jsp";
+    }
 }

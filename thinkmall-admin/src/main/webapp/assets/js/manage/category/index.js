@@ -118,7 +118,7 @@ jQuery(function ($) {
                 // 初始化树为启用类别
                 $.fn.zTree.init(categoryTreeBlock, categoryTreeSetting, enabledCategories);
             } else {
-                //TODO: redirect to error page
+                window.location.href = BASE_PATH + "/manage/errorPage";
             }
         });
     }
@@ -178,7 +178,7 @@ jQuery(function ($) {
                     showHintModal('修改成功', true);
                     getCategoriesAndInitTree();
                 } else {
-                    // TODO: redirect to error page
+                    window.location.href = BASE_PATH + "/manage/errorPage";
                 }
             });
         });
