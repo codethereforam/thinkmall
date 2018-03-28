@@ -15,6 +15,7 @@ import org.springframework.web.util.HtmlUtils;
 import priv.thinkam.thinkmall.common.base.Result;
 import priv.thinkam.thinkmall.dao.entity.Category;
 import priv.thinkam.thinkmall.dao.entity.CategoryExample;
+import priv.thinkam.thinkmall.dao.enums.CategoryLevelEnum;
 import priv.thinkam.thinkmall.service.CategoryService;
 import priv.thinkam.thinkmall.validator.FieldExistValidator;
 
@@ -79,14 +80,16 @@ public class CategoryController {
                 .on(category.getParentId(), new ValidatorHandler<Long>() {
                     @Override
                     public boolean validate(ValidatorContext context, Long parentId) {
+                        if (parentId == 0) {
+                            return true;
+                        }
                         ValidationError error = ValidationError.create("父类别非法操作，否则请联系管理员")
                                 .setErrorCode(0)
                                 .setField("parentId")
                                 .setInvalidValue(parentId);
-                        CategoryExample example = new CategoryExample();
-                        example.createCriteria().andParentIdEqualTo(parentId);
-                        int count = categoryService.countByExample(example);
-                        if (count <= 0) {
+                        Category parent = categoryService.selectByPrimaryKey(parentId);
+                        // 父类别必须存在且不能为三级类别
+                        if (parent == null || parent.getLevel() == CategoryLevelEnum.THREE) {
                             context.addError(error);
                             return false;
                         }
