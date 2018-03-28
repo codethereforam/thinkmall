@@ -107,12 +107,22 @@
         <dependency>
             <groupId>com.baidu.unbiz</groupId>
             <artifactId>fluent-validator</artifactId>
-            <version>${fluent-validator.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.baidu.unbiz</groupId>
             <artifactId>fluent-validator-jsr303</artifactId>
-            <version>${fluent-validator.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>
