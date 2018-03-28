@@ -45,6 +45,8 @@ jQuery(function ($) {
     var updateForm = $('#updateForm');
     var updateFormFieldset = updateForm.find('fieldset');
 
+    var categoriesListTree;
+
     // 类别树节点被点击相应的事件
     function onCategoryTreeNodeClick(event, treeId, treeNode) {
         var parentNode = treeNode.getParentNode();
@@ -133,7 +135,7 @@ jQuery(function ($) {
                 }
                 console.log(enabledCategories);
                 // 初始化树为启用类别
-                $.fn.zTree.init(categoryTreeBlock, categoryTreeSetting, enabledCategories);
+                categoriesListTree = $.fn.zTree.init(categoryTreeBlock, categoryTreeSetting, enabledCategories);
             } else {
                 window.location.href = BASE_PATH + "/manage/errorPage";
             }
@@ -180,7 +182,7 @@ jQuery(function ($) {
                     break;
                 default:
             }
-            $.fn.zTree.init(categoryTreeBlock, categoryTreeSetting, categories);
+            categoriesListTree = $.fn.zTree.init(categoryTreeBlock, categoryTreeSetting, categories);
         });
     }
 
@@ -276,6 +278,22 @@ jQuery(function ($) {
         });
     }
 
+    function initAddCategoryListener() {
+        $("#addCategoryBtn").click(function () {
+            var selectedCategories = categoriesListTree.getSelectedNodes();
+            if(selectedCategories.length === 0) {
+                return;
+            }
+            var parent = selectedCategories[0];
+            if(parent.level === 3) {
+               return;
+            }
+            inputAddParentId.val(parent.categoryId);
+            inputAddParentName.val(parent.name);
+            inputAddLevel.val(parent.level + 1);
+        });
+    }
+
     function init() {
         // disable form by default
         disableUpdateForm();
@@ -286,6 +304,7 @@ jQuery(function ($) {
         initAddListener();
         initRefreshListener();
         initBindAddSelectParentEvent();
+        initAddCategoryListener();
     }
 
     $(document).ready(function () {

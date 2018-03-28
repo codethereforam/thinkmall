@@ -24,7 +24,7 @@
                 <li><a href="javascript:void(0)" class="enabled-category">启用类别</a></li>
             </ul>
             <button class="btn btn-success glyphicon glyphicon-plus" data-toggle="modal"
-                    data-target="#addModal">添加类别
+                    data-target="#addModal" id="addCategoryBtn">添加类别
             </button>
         </div>
         <span class="text-primary h2 col-sm-offset-2"><em>类别详情</em></span>
