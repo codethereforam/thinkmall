@@ -1,7 +1,11 @@
 package priv.thinkam.thinkmall.dao.entity;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import priv.thinkam.thinkmall.dao.enums.CategoryLevelEnum;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -19,26 +23,33 @@ public class Category {
     /**
      * 类别名称
      */
+    @NotEmpty(message = "类别名称不能为空")
+    @Size(min = 1, max = 20, message = "类别名称长度应为1-20个字符")
+    @Pattern(regexp = "[0-9a-zA-Z\u4e00-\u9fa5_]+", message = "类别名称仅支持中英文、数字和下划线")
     private String name;
 
     /**
      * 类别描述
      */
+    @Size(max = 255, message = "类别描述输入字符过多，超过255个字符")
     private String description;
 
     /**
      * 父类别编号（0代表是根类别）
      */
+    @NotNull(message = "父类别非法操作，否则请联系管理员")
     private Long parentId;
 
     /**
-     *  类别层次（只能为1或2或3）
+     * 类别层次（只能为1或2或3）
      */
+    @NotNull(message = "级别非法操作，否则请联系管理员")
     private CategoryLevelEnum level;
 
     /**
      * 是否删除（0：正常，1：删除）
      */
+    @NotNull(message = "是否启用字段非法操作，否则请联系管理员")
     private Boolean deleted;
 
     /**
@@ -146,13 +157,13 @@ public class Category {
         }
         Category other = (Category) that;
         return (this.getCategoryId() == null ? other.getCategoryId() == null : this.getCategoryId().equals(other.getCategoryId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
-            && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
-            && (this.getLevel() == null ? other.getLevel() == null : this.getLevel().equals(other.getLevel()))
-            && (this.getDeleted() == null ? other.getDeleted() == null : this.getDeleted().equals(other.getDeleted()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getModifiedTime() == null ? other.getModifiedTime() == null : this.getModifiedTime().equals(other.getModifiedTime()));
+                && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+                && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
+                && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
+                && (this.getLevel() == null ? other.getLevel() == null : this.getLevel().equals(other.getLevel()))
+                && (this.getDeleted() == null ? other.getDeleted() == null : this.getDeleted().equals(other.getDeleted()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+                && (this.getModifiedTime() == null ? other.getModifiedTime() == null : this.getModifiedTime().equals(other.getModifiedTime()));
     }
 
     @Override

@@ -124,8 +124,9 @@
                     <div class="form-group">
                         <label for="inputAddName" class="col-sm-2 control-label">类别名称</label>
                         <div class="col-sm-3">
-                            <input id="inputAddName" type="text" name="name" class="form-control" placeholder="非空"
-                                   autofocus required/>
+                            <input id="inputAddName" type="text" name="name" class="form-control" placeholder="1-20个字符"
+                                   title="请输入1-20个字符，仅支持中英文、数字和下划线"
+                                   autofocus required pattern="[0-9a-zA-Z\u4e00-\u9fa5_]{1,20}"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -150,8 +151,9 @@
                     <div class="form-group">
                         <label for="inputAddDescription" class="col-sm-2 control-label">类别描述</label>
                         <div class="col-sm-4">
-                            <textarea id="inputAddDescription"  name="description" class="form-control" cols="30"
-                                  rows="5"></textarea>
+                            <textarea id="inputAddDescription" name="description" class="form-control" cols="30"
+                                      rows="5" maxlength="255" placeholder="请输入255个字符以内"
+                                      title="类别描述输入字符过多，超过255个字符"></textarea>
                         </div>
                     </div>
                 </form>

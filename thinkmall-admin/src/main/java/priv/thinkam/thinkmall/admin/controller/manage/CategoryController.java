@@ -1,5 +1,8 @@
 package priv.thinkam.thinkmall.admin.controller.manage;
 
+import com.baidu.unbiz.fluentvalidator.*;
+import com.baidu.unbiz.fluentvalidator.jsr303.HibernateSupportedValidator;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.HtmlUtils;
 import priv.thinkam.thinkmall.common.base.Result;
 import priv.thinkam.thinkmall.dao.entity.Category;
 import priv.thinkam.thinkmall.dao.entity.CategoryExample;
 import priv.thinkam.thinkmall.service.CategoryService;
+import priv.thinkam.thinkmall.validator.FieldExistValidator;
 
+import javax.validation.Validation;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -60,7 +66,38 @@ public class CategoryController {
     @ResponseBody
     public Result add(Category category) {
         logger.debug("add() get category: {}", category);
-        //TODO:check parameter
+        // trim relative params
+        category.setName(StringUtils.trim(category.getName()));
+        category.setDescription(StringUtils.trim(category.getDescription()));
+        // html escape
+        category.setDescription(HtmlUtils.htmlEscape(category.getDescription()));
+        // validate parameter
+        javax.validation.Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        ComplexResult result = FluentValidator.checkAll()
+                .on(category, new HibernateSupportedValidator<Category>().setHiberanteValidator(validator))
+                .on(category.getName(), new FieldExistValidator(categoryService, "name", "已存在该类别"))
+                .on(category.getParentId(), new ValidatorHandler<Long>() {
+                    @Override
+                    public boolean validate(ValidatorContext context, Long parentId) {
+                        ValidationError error = ValidationError.create("父类别非法操作，否则请联系管理员")
+                                .setErrorCode(0)
+                                .setField("parentId")
+                                .setInvalidValue(parentId);
+                        CategoryExample example = new CategoryExample();
+                        example.createCriteria().andParentIdEqualTo(parentId);
+                        int count = categoryService.countByExample(example);
+                        if (count <= 0) {
+                            context.addError(error);
+                            return false;
+                        }
+                        return true;
+                    }
+                })
+                .doValidate()
+                .result(ResultCollectors.toComplex());
+        if (!result.isSuccess()) {
+            return Result.create(false, result.getErrors());
+        }
         Date now = new Date();
         category.setCreateTime(now);
         category.setModifiedTime(now);

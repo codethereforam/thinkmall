@@ -238,13 +238,18 @@ jQuery(function ($) {
             };
             console.log(category);
             $.post(BASE_PATH + '/manage/category/add', category, function (data) {
+                // if data is the error page
+                if (typeof data !== 'object') {
+                    $('html').html(data);
+                    return;
+                }
                 if (data.success) {
                     reset();
                     showHintModal('添加成功', true);
                     // hide add modal
                     addModal.modal('hide');
                 } else {
-                    showHintModal(data.data + ', 添加失败', false);
+                    showHintModal(data.data[0].errorMsg + ', 添加失败', false);
                 }
             });
         });
