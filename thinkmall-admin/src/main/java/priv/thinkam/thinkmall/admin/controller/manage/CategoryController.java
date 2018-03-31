@@ -76,7 +76,7 @@ public class CategoryController {
         javax.validation.Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         ComplexResult result = FluentValidator.checkAll()
                 .on(category, new HibernateSupportedValidator<Category>().setHiberanteValidator(validator))
-                .on(category.getName(), new FieldExistValidator(categoryService, "name", "已存在该类别"))
+                .on(category.getName(), new FieldExistValidator<>(categoryService, "name", "已存在该类别"))
                 .on(category.getParentId(), new ValidatorHandler<Long>() {
                     @Override
                     public boolean validate(ValidatorContext context, Long parentId) {

@@ -6,27 +6,29 @@ import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import priv.thinkam.thinkmall.dao.entity.CategoryExample;
-import priv.thinkam.thinkmall.service.CategoryService;
+import priv.thinkam.thinkmall.common.util.AopTargetUtils;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 验证字段在数据库是否存在
- * TODO: 使用泛型修改为通用的类
+ * TODO: 使用泛型修改为field类型无关
+ *
  * @author thinkam
  * @date 2018/03/28
  */
-public class FieldExistValidator extends ValidatorHandler<String> implements Validator<String> {
-    private CategoryService categoryService;
+public class FieldExistValidator<S> extends ValidatorHandler<String> implements Validator<String> {
+    private static Logger logger = LoggerFactory.getLogger(FieldExistValidator.class);
+    private final Pattern pattern = Pattern.compile("<(.+)>");
+
+    private S service;
     private String field;
     private String errorMsg;
 
-    private static Logger logger = LoggerFactory.getLogger(FieldExistValidator.class);
-
-    public FieldExistValidator(CategoryService categoryService, String field, String errorMsg) {
-        this.categoryService = categoryService;
+    public FieldExistValidator(S service, String field, String errorMsg) {
+        this.service = service;
         this.field = field;
         this.errorMsg = errorMsg;
     }
@@ -36,23 +38,52 @@ public class FieldExistValidator extends ValidatorHandler<String> implements Val
         if (s == null) {
             return false;
         }
-        CategoryExample categoryExample = new CategoryExample();
-        CategoryExample.Criteria criteria = categoryExample.createCriteria();
-        //.andNameEqualTo(s)
-        String methodName = "and" + field.substring(0, 1).toUpperCase() + field.substring(1, field.length()) + "EqualTo";
         try {
-            Method method = CategoryExample.Criteria.class.getDeclaredMethod(methodName, String.class);
+            Class serviceClass = AopTargetUtils.getTarget(service).getClass();
+            String getGenericSuperclassName = serviceClass.getGenericSuperclass().getTypeName();
+            Matcher matcher = pattern.matcher(getGenericSuperclassName);
+            String exampleClassName = null;
+            if (matcher.find()) {
+                exampleClassName = matcher.group(1).split(",")[2].trim();
+            }
+            if(exampleClassName == null) {
+                return false;
+            }
+            Object example = Class.forName(exampleClassName).newInstance();
+
+            Method createCriteriaMethod = example.getClass().getDeclaredMethod("createCriteria");
+            Object criteria = createCriteriaMethod.invoke(example);
+
+            //.andXxxEqualTo(s)
+            String methodName = "and" + field.substring(0, 1).toUpperCase() + field.substring(1, field.length()) + "EqualTo";
+            Class[] exampleInnerClasses = example.getClass().getDeclaredClasses();
+            Class criteriaClass = null;
+            for (Class c : exampleInnerClasses) {
+                if ("Criteria".equals(c.getSimpleName())) {
+                    criteriaClass = c;
+                }
+            }
+            logger.debug("criteriaClass: {}", criteriaClass);
+            if (criteriaClass == null) {
+                return false;
+            }
+            Method method = criteriaClass.getDeclaredMethod(methodName, String.class);
             method.invoke(criteria, s);
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            logger.error("方法反射调用错误", e);
-        }
-        if (categoryService.countByExample(categoryExample) > 0) {
-            context.addError(
-                    ValidationError.create(errorMsg)
-                            .setErrorCode(0)
-                            .setField(field)
-                            .setInvalidValue(s));
-            return false;
+
+            Method countByExample = AopTargetUtils.getTarget(service).getClass().getSuperclass().getDeclaredMethod
+                    ("countByExample", Object
+                            .class);
+            int count = (int) countByExample.invoke(AopTargetUtils.getTarget(service), example);
+            if (count > 0) {
+                context.addError(
+                        ValidationError.create(errorMsg)
+                                .setErrorCode(0)
+                                .setField(field)
+                                .setInvalidValue(s));
+                return false;
+            }
+        } catch (Exception e) {
+            logger.error("检查字段是否存在验证器出错", e);
         }
         return true;
     }
