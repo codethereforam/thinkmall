@@ -66,7 +66,6 @@ public class ManageLoginController {
     @PostMapping("/login")
     @ResponseBody
     public Result login(HttpServletRequest request, HttpSession session) {
-        logger.debug("login() get post request...");
         // check login
         if (session.getAttribute(ADMINISTRATOR_IN_SESSION) != null) {
             return Result.create(false, "您已登录");

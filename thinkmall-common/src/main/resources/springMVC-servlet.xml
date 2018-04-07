@@ -16,11 +16,8 @@
     <!-- 扫描interceptor -->
     <context:component-scan base-package="**.*interceptor"/>
 
-    <!-- 启用AspectJ风格的切面 -->
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
-
-    <!-- 启动aop注解基于类的代理（这时需要cglib库），如果proxy-target-class属值被设置为false或者这个属性被省略，那么标准的JDK 基于接口的代理将起作用 -->
-    <!--<aop:config proxy-target-class="true"/>-->
+    <!-- Enables the use of the @AspectJ style of Spring AOP -->
+    <aop:aspectj-autoproxy/>
 
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">

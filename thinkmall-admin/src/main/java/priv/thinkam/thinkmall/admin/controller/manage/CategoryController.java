@@ -56,8 +56,6 @@ public class CategoryController {
     @PostMapping("/update")
     @ResponseBody
     public Result update(@XssFilterMethodArgs Category category) {
-        logger.debug("update() get category{}: ", category);
-        logger.debug("update() get category create time: {}", DATE_FORMAT.format(category.getCreateTime()));
         //TODO:check parameter
         // update modifiedTime
         category.setModifiedTime(new Date());
@@ -69,7 +67,6 @@ public class CategoryController {
     @PostMapping("/add")
     @ResponseBody
     public Result add(@XssFilterMethodArgs Category category) {
-        logger.debug("add() get category: {}", category);
         // trim relative params
         category.setName(StringUtils.trim(category.getName()));
         category.setDescription(StringUtils.trim(category.getDescription()));
