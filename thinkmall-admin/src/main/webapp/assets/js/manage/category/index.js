@@ -57,7 +57,7 @@ jQuery(function ($) {
         }
         inputCategoryId.val(treeNode.categoryId);
         inputName.val(treeNode.name);
-        inputDescription.val(treeNode.description);
+        inputDescription.html(treeNode.description);
         inputParentName.val(parentNode === null ? '无' : parentNode.name);
         inputParentId.val(parentNode === null ? -1 : parentNode.categoryId);
         inputLevel.val(treeNode.level);

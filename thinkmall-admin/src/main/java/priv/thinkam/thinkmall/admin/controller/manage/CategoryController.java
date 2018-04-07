@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.util.HtmlUtils;
+import priv.thinkam.thinkmall.common.annotation.XssFilterMethod;
+import priv.thinkam.thinkmall.common.annotation.XssFilterMethodArgs;
 import priv.thinkam.thinkmall.common.base.Result;
 import priv.thinkam.thinkmall.dao.entity.Category;
 import priv.thinkam.thinkmall.dao.entity.CategoryExample;
@@ -51,9 +52,10 @@ public class CategoryController {
         return Result.create(true, categories);
     }
 
+    @XssFilterMethod
     @PostMapping("/update")
     @ResponseBody
-    public Result update(Category category) {
+    public Result update(@XssFilterMethodArgs Category category) {
         logger.debug("update() get category{}: ", category);
         logger.debug("update() get category create time: {}", DATE_FORMAT.format(category.getCreateTime()));
         //TODO:check parameter
@@ -63,15 +65,14 @@ public class CategoryController {
         return Result.createWithoutData(true);
     }
 
+    @XssFilterMethod
     @PostMapping("/add")
     @ResponseBody
-    public Result add(Category category) {
+    public Result add(@XssFilterMethodArgs Category category) {
         logger.debug("add() get category: {}", category);
         // trim relative params
         category.setName(StringUtils.trim(category.getName()));
         category.setDescription(StringUtils.trim(category.getDescription()));
-        // html escape
-        category.setDescription(HtmlUtils.htmlEscape(category.getDescription()));
         // validate parameter
         javax.validation.Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         ComplexResult result = FluentValidator.checkAll()

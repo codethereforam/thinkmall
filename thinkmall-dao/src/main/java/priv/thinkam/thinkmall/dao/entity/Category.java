@@ -1,6 +1,7 @@
 package priv.thinkam.thinkmall.dao.entity;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import priv.thinkam.thinkmall.common.annotation.HtmlEscape;
 import priv.thinkam.thinkmall.dao.enums.CategoryLevelEnum;
 
 import javax.validation.constraints.NotNull;
@@ -31,6 +32,7 @@ public class Category {
     /**
      * 类别描述
      */
+    @HtmlEscape
     @Size(max = 255, message = "类别描述输入字符过多，超过255个字符")
     private String description;
 
