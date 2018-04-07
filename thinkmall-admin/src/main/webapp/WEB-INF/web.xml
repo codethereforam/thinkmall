@@ -8,6 +8,24 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>-->
 
+    <!-- 配置静态资源字符编码 -->
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/assets/*</url-pattern>
+    </filter-mapping>
+
     <!-- 默认的spring配置文件是在WEB-INF下的applicationContext.xml -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
