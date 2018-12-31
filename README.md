@@ -1,4 +1,12 @@
 # thinkmall
 基于Spring + SpringMVC + Mybatis开发的购物网站
 
-## *developing, please wait...*
+> **⚠️⚠️ 项目放弃开发 ⚠️⚠️** 
+>
+> 由于本人后来工作，没时间开发，因此放弃开发。
+
+---
+
+## 开发进度
+- 搭建项目框架
+- 类别管理的一部分
